@@ -3,6 +3,9 @@ from __future__ import annotations
 from typing import Any
 
 from lzt_api.client import BaseClient, AsyncBaseClient
+{% if response_models %}
+from {{ module_prefix }}.models import {{ response_models | join(", ") }}
+{% endif %}
 
 
 class {{ class_name }}(BaseClient):
@@ -27,7 +30,11 @@ class {{ class_name }}(BaseClient):
         {{ param.python_name }}: {{ param.type_hint }} | None = None,
 {% endif %}
 {% endfor %}
+{% if endpoint.response_model %}
+    ) -> {{ endpoint.response_model }}:
+{% else %}
     ) -> dict[str, Any]:
+{% endif %}
         path = "{{ endpoint.path }}"
 {% for param in endpoint.path_params %}
         path = path.replace("{{ '{' + param.name + '}' }}", str({{ param.python_name }}))
@@ -47,13 +54,18 @@ class {{ class_name }}(BaseClient):
 {% endfor %}
 {% endif %}
 {% if endpoint.query_params and endpoint.body_params %}
-        return self._request("{{ endpoint.method }}", path, params=params, json=data)
+        raw = self._request("{{ endpoint.method }}", path, params=params, json=data)
 {% elif endpoint.query_params %}
-        return self._request("{{ endpoint.method }}", path, params=params)
+        raw = self._request("{{ endpoint.method }}", path, params=params)
 {% elif endpoint.body_params %}
-        return self._request("{{ endpoint.method }}", path, json=data)
+        raw = self._request("{{ endpoint.method }}", path, json=data)
 {% else %}
-        return self._request("{{ endpoint.method }}", path)
+        raw = self._request("{{ endpoint.method }}", path)
+{% endif %}
+{% if endpoint.response_model %}
+        return {{ endpoint.response_model }}.model_validate(raw)
+{% else %}
+        return raw
 {% endif %}
 
 {% endfor %}
@@ -80,7 +92,11 @@ class Async{{ class_name }}(AsyncBaseClient):
         {{ param.python_name }}: {{ param.type_hint }} | None = None,
 {% endif %}
 {% endfor %}
+{% if endpoint.response_model %}
+    ) -> {{ endpoint.response_model }}:
+{% else %}
     ) -> dict[str, Any]:
+{% endif %}
         path = "{{ endpoint.path }}"
 {% for param in endpoint.path_params %}
         path = path.replace("{{ '{' + param.name + '}' }}", str({{ param.python_name }}))
@@ -100,13 +116,18 @@ class Async{{ class_name }}(AsyncBaseClient):
 {% endfor %}
 {% endif %}
 {% if endpoint.query_params and endpoint.body_params %}
-        return await self._request("{{ endpoint.method }}", path, params=params, json=data)
+        raw = await self._request("{{ endpoint.method }}", path, params=params, json=data)
 {% elif endpoint.query_params %}
-        return await self._request("{{ endpoint.method }}", path, params=params)
+        raw = await self._request("{{ endpoint.method }}", path, params=params)
 {% elif endpoint.body_params %}
-        return await self._request("{{ endpoint.method }}", path, json=data)
+        raw = await self._request("{{ endpoint.method }}", path, json=data)
 {% else %}
-        return await self._request("{{ endpoint.method }}", path)
+        raw = await self._request("{{ endpoint.method }}", path)
+{% endif %}
+{% if endpoint.response_model %}
+        return {{ endpoint.response_model }}.model_validate(raw)
+{% else %}
+        return raw
 {% endif %}
 
 {% endfor %}

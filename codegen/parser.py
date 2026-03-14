@@ -133,7 +133,7 @@ class OpenAPIParser:
                 continue
             model = SchemaModel(
                 name=name,
-                class_name=name.replace("-", "_"),
+                class_name=name.replace("-", "_").replace(".", "_"),
             )
             properties = schema.get("properties", {})
             required_fields = set(schema.get("required", []))
@@ -212,6 +212,36 @@ class OpenAPIParser:
                                 description=prop_schema.get("description", ""),
                                 enum=prop_schema.get("enum"),
                             ))
+                        break
+
+                # Extract response model
+                responses = spec.get("responses", {})
+                success_resp = responses.get("200") or responses.get("201") or responses.get("2XX")
+                if success_resp:
+                    content = success_resp.get("content", {})
+                    for ct, ct_spec in content.items():
+                        resp_schema = ct_spec.get("schema", {})
+                        if "$ref" in resp_schema:
+                            ref_name = resp_schema["$ref"].split("/")[-1]
+                            endpoint.response_model = ref_name.replace("-", "_").replace(".", "_")
+                        elif resp_schema.get("type") == "object" and resp_schema.get("properties"):
+                            # Inline schema — create a model for it
+                            model_name = operation_id + "Response"
+                            class_name_resp = model_name.replace("-", "_").replace(".", "_")
+                            model = SchemaModel(name=model_name, class_name=class_name_resp)
+                            properties = resp_schema.get("properties", {})
+                            required_fields = set(resp_schema.get("required", []))
+                            for prop_name, prop_schema in properties.items():
+                                type_hint = _openapi_type_to_python(prop_schema)
+                                model.fields.append(SchemaField(
+                                    name=prop_name,
+                                    python_name=_sanitize_python_name(prop_name),
+                                    type_hint=type_hint,
+                                    required=prop_name in required_fields,
+                                    default=prop_schema.get("default"),
+                                ))
+                            self.models.append(model)
+                            endpoint.response_model = class_name_resp
                         break
 
                 self.endpoints.append(endpoint)

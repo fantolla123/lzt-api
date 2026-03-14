@@ -20,6 +20,7 @@ class TemplateEndpoint:
     optional_params: list[Parameter]
     query_params: list[Parameter]
     body_params: list[Parameter]
+    response_model: str | None = None
 
 
 def _repr_value(value):
@@ -80,6 +81,7 @@ def prepare_endpoints(parser: OpenAPIParser) -> list[TemplateEndpoint]:
             optional_params=optional_non_path,
             query_params=query_params,
             body_params=body_params,
+            response_model=ep.response_model,
         ))
 
     template_endpoints = _check_method_name_collisions(template_endpoints)
@@ -116,11 +118,28 @@ def generate(schema_path: str, output_dir: str, class_name: str) -> None:
     base_url = get_base_url(parser.spec)
 
     template_endpoints = prepare_endpoints(parser)
+
+    # Collect used response models for import
+    response_models = sorted({
+        ep.response_model for ep in template_endpoints if ep.response_model
+    })
+
     client_template = env.get_template("client.py.j2")
+    # Derive module prefix from output dir (e.g. src/lzt_api/forum/ -> lzt_api.forum)
+    output_parts = Path(output_dir).parts
+    try:
+        src_idx = list(output_parts).index("src")
+        module_prefix = ".".join(output_parts[src_idx + 1:])
+    except ValueError:
+        module_prefix = ".".join(output_parts[-2:])
+    module_prefix = module_prefix.rstrip(".")
+
     client_code = client_template.render(
         class_name=class_name,
         endpoints=template_endpoints,
         base_url=base_url,
+        response_models=response_models,
+        module_prefix=module_prefix,
     )
     (output / "client.py").write_text(client_code, encoding="utf-8")
 

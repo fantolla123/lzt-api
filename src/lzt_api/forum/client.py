@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from lzt_api.client import BaseClient, AsyncBaseClient
+from lzt_api.forum.models import Assets_CssResponse, Batch_ExecuteResponse, Chatbox_EditMessageResponse, Chatbox_GetIgnoreResponse, Chatbox_GetLeaderboardResponse, Chatbox_GetMessagesResponse, Chatbox_IndexResponse, Chatbox_OnlineResponse, Chatbox_PostMessageResponse, Chatbox_ReportReasonsResponse, Conversations_Alerts_DisableResponse, Conversations_Alerts_EnableResponse, Conversations_CreateResponse, Conversations_ListResponse, Conversations_Messages_CreateResponse, Conversations_Messages_EditResponse, Conversations_Messages_ListResponse, Conversations_ReadAllResponse, Conversations_SearchResponse, Conversations_StarResponse, Conversations_StartResponse, Conversations_UnstarResponse, Forms_CreateResponse, Forms_ListResponse, Forums_GetFeedOptionsResponse, Forums_GroupedResponse, Forums_ListResponse, Links_GetResponse, Links_ListResponse, OAuth_TokenResponse, Posts_Comments_EditResponse, Posts_CreateResponse, Posts_EditResponse, Posts_GetResponse, Posts_ReportReasonsResponse, ProfilePosts_Comments_EditResponse, ProfilePosts_ReportReasonsResponse, Search_AllResponse, Search_UsersResponse, Threads_ClaimResponse, Threads_CreateContestResponse, Threads_CreateResponse, Threads_EditResponse, Threads_GetResponse, Users_ClaimsResponse, Users_GetResponse, Users_IgnoredResponse, Users_LikesResponse, Users_ListResponse, Users_SA_ResetResponse, Users_SecretAnswerTypesResponse, Users_TrophiesResponse
 
 
 class ForumClient(BaseClient):
@@ -11,19 +12,21 @@ class ForumClient(BaseClient):
 
     def o_auth_token(
         self,
-    ) -> dict[str, Any]:
+    ) -> OAuth_TokenResponse:
         path = "/oauth/token"
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return OAuth_TokenResponse.model_validate(raw)
 
     def assets_css(
         self,
         css: list[str] | None = None,
-    ) -> dict[str, Any]:
+    ) -> Assets_CssResponse:
         path = "/css"
         params: dict[str, Any] = {}
         if css is not None:
             params["css"] = css
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Assets_CssResponse.model_validate(raw)
 
     def categories_list(
         self,
@@ -39,7 +42,8 @@ class ForumClient(BaseClient):
             params["parent_forum_id"] = parent_forum_id
         if order is not None:
             params["order"] = order
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def categories_get(
         self,
@@ -47,14 +51,15 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/categories/{category_id}"
         path = path.replace("{category_id}", str(category_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def forums_list(
         self,
         parent_category_id: int | None = None,
         parent_forum_id: int | None = None,
         order: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Forums_ListResponse:
         path = "/forums"
         params: dict[str, Any] = {}
         if parent_category_id is not None:
@@ -63,13 +68,15 @@ class ForumClient(BaseClient):
             params["parent_forum_id"] = parent_forum_id
         if order is not None:
             params["order"] = order
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Forums_ListResponse.model_validate(raw)
 
     def forums_grouped(
         self,
-    ) -> dict[str, Any]:
+    ) -> Forums_GroupedResponse:
         path = "/forums/grouped"
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return Forums_GroupedResponse.model_validate(raw)
 
     def forums_get(
         self,
@@ -77,7 +84,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/forums/{forum_id}"
         path = path.replace("{forum_id}", str(forum_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def forums_followers(
         self,
@@ -85,7 +93,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/forums/{forum_id}/followers"
         path = path.replace("{forum_id}", str(forum_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def forums_follow(
         self,
@@ -110,7 +119,8 @@ class ForumClient(BaseClient):
             data["prefix_ids"] = prefix_ids
         if minimal_contest_amount is not None:
             data["minimal_contest_amount"] = minimal_contest_amount
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def forums_unfollow(
         self,
@@ -118,7 +128,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/forums/{forum_id}/followers"
         path = path.replace("{forum_id}", str(forum_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def forums_followed(
         self,
@@ -128,13 +139,15 @@ class ForumClient(BaseClient):
         params: dict[str, Any] = {}
         if total is not None:
             params["total"] = total
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def forums_get_feed_options(
         self,
-    ) -> dict[str, Any]:
+    ) -> Forums_GetFeedOptionsResponse:
         path = "/forums/feed/options"
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return Forums_GetFeedOptionsResponse.model_validate(raw)
 
     def forums_edit_feed_options(
         self,
@@ -148,21 +161,24 @@ class ForumClient(BaseClient):
             data["node_ids"] = node_ids
         if keywords is not None:
             data["keywords"] = keywords
-        return self._request("PUT", path, json=data)
+        raw = self._request("PUT", path, json=data)
+        return raw
 
     def links_list(
         self,
-    ) -> dict[str, Any]:
+    ) -> Links_ListResponse:
         path = "/link-forums"
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return Links_ListResponse.model_validate(raw)
 
     def links_get(
         self,
         link_id: int,
-    ) -> dict[str, Any]:
+    ) -> Links_GetResponse:
         path = "/link-forums/{link_id}"
         path = path.replace("{link_id}", str(link_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return Links_GetResponse.model_validate(raw)
 
     def pages_list(
         self,
@@ -175,7 +191,8 @@ class ForumClient(BaseClient):
             params["parent_page_id"] = parent_page_id
         if order is not None:
             params["order"] = order
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def pages_get(
         self,
@@ -183,7 +200,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/pages/{page_id}"
         path = path.replace("{page_id}", str(page_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def navigation_list(
         self,
@@ -193,7 +211,8 @@ class ForumClient(BaseClient):
         params: dict[str, Any] = {}
         if parent is not None:
             params["parent"] = parent
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def threads_list(
         self,
@@ -254,7 +273,8 @@ class ForumClient(BaseClient):
             params["thread_update_date"] = thread_update_date
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def threads_create(
         self,
@@ -274,7 +294,7 @@ class ForumClient(BaseClient):
         watch_thread_state: bool | None = None,
         watch_thread: bool | None = None,
         watch_thread_email: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Threads_CreateResponse:
         path = "/threads"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -310,7 +330,8 @@ class ForumClient(BaseClient):
             data["watch_thread"] = watch_thread
         if watch_thread_email is not None:
             data["watch_thread_email"] = watch_thread_email
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Threads_CreateResponse.model_validate(raw)
 
     def threads_create_contest(
         self,
@@ -340,7 +361,7 @@ class ForumClient(BaseClient):
         watch_thread_state: bool | None = None,
         watch_thread: bool | None = None,
         watch_thread_email: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Threads_CreateContestResponse:
         path = "/contests"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -396,7 +417,8 @@ class ForumClient(BaseClient):
             data["watch_thread"] = watch_thread
         if watch_thread_email is not None:
             data["watch_thread_email"] = watch_thread_email
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Threads_CreateContestResponse.model_validate(raw)
 
     def threads_claim(
         self,
@@ -422,7 +444,7 @@ class ForumClient(BaseClient):
         watch_thread_state: bool | None = None,
         watch_thread: bool | None = None,
         watch_thread_email: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Threads_ClaimResponse:
         path = "/claims"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -470,19 +492,21 @@ class ForumClient(BaseClient):
             data["watch_thread_email"] = watch_thread_email
         if post_body is not None:
             data["post_body"] = post_body
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Threads_ClaimResponse.model_validate(raw)
 
     def threads_get(
         self,
         thread_id: int,
         fields_include: list[str] | None = None,
-    ) -> dict[str, Any]:
+    ) -> Threads_GetResponse:
         path = "/threads/{thread_id}"
         path = path.replace("{thread_id}", str(thread_id))
         params: dict[str, Any] = {}
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Threads_GetResponse.model_validate(raw)
 
     def threads_edit(
         self,
@@ -496,7 +520,7 @@ class ForumClient(BaseClient):
         allow_ask_hidden_content: bool | None = None,
         reply_group: int | None = None,
         comment_ignore_group: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Threads_EditResponse:
         path = "/threads/{thread_id}"
         path = path.replace("{thread_id}", str(thread_id))
         params: dict[str, Any] = {}
@@ -519,7 +543,8 @@ class ForumClient(BaseClient):
             data["reply_group"] = reply_group
         if comment_ignore_group is not None:
             data["comment_ignore_group"] = comment_ignore_group
-        return self._request("PUT", path, json=data)
+        raw = self._request("PUT", path, json=data)
+        return Threads_EditResponse.model_validate(raw)
 
     def threads_delete(
         self,
@@ -532,7 +557,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if reason is not None:
             data["reason"] = reason
-        return self._request("DELETE", path, json=data)
+        raw = self._request("DELETE", path, json=data)
+        return raw
 
     def threads_move(
         self,
@@ -560,7 +586,8 @@ class ForumClient(BaseClient):
             data["apply_thread_prefix"] = apply_thread_prefix
         if send_alert is not None:
             data["send_alert"] = send_alert
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def threads_bump(
         self,
@@ -568,7 +595,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/bump"
         path = path.replace("{thread_id}", str(thread_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def threads_hide(
         self,
@@ -576,7 +604,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/hide"
         path = path.replace("{thread_id}", str(thread_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def threads_star(
         self,
@@ -584,7 +613,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/star"
         path = path.replace("{thread_id}", str(thread_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def threads_unstar(
         self,
@@ -592,7 +622,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/star"
         path = path.replace("{thread_id}", str(thread_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def threads_followers(
         self,
@@ -600,7 +631,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/followers"
         path = path.replace("{thread_id}", str(thread_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def threads_follow(
         self,
@@ -613,7 +645,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if email is not None:
             data["email"] = email
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def threads_unfollow(
         self,
@@ -621,7 +654,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/followers"
         path = path.replace("{thread_id}", str(thread_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def threads_followed(
         self,
@@ -634,7 +668,8 @@ class ForumClient(BaseClient):
             params["total"] = total
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def threads_navigation(
         self,
@@ -642,7 +677,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/navigation"
         path = path.replace("{thread_id}", str(thread_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def threads_poll_get(
         self,
@@ -650,7 +686,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/poll"
         path = path.replace("{thread_id}", str(thread_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def threads_poll_vote(
         self,
@@ -666,7 +703,8 @@ class ForumClient(BaseClient):
             data["response_id"] = response_id
         if response_ids is not None:
             data["response_ids"] = response_ids
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def threads_unread(
         self,
@@ -682,7 +720,8 @@ class ForumClient(BaseClient):
             params["forum_id"] = forum_id
         if data_limit is not None:
             params["data_limit"] = data_limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def threads_recent(
         self,
@@ -701,7 +740,8 @@ class ForumClient(BaseClient):
             params["forum_id"] = forum_id
         if data_limit is not None:
             params["data_limit"] = data_limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def threads_finish(
         self,
@@ -709,7 +749,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/contests/{thread_id}/finish"
         path = path.replace("{thread_id}", str(thread_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def posts_list(
         self,
@@ -731,14 +772,15 @@ class ForumClient(BaseClient):
             params["limit"] = limit
         if order is not None:
             params["order"] = order
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def posts_create(
         self,
         post_body: str,
         thread_id: int | None = None,
         quote_post_id: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Posts_CreateResponse:
         path = "/posts"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -748,28 +790,31 @@ class ForumClient(BaseClient):
             data["thread_id"] = thread_id
         if quote_post_id is not None:
             data["quote_post_id"] = quote_post_id
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Posts_CreateResponse.model_validate(raw)
 
     def posts_get(
         self,
         post_id: int,
-    ) -> dict[str, Any]:
+    ) -> Posts_GetResponse:
         path = "/posts/{post_id}"
         path = path.replace("{post_id}", str(post_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return Posts_GetResponse.model_validate(raw)
 
     def posts_edit(
         self,
         post_id: int,
         post_body: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Posts_EditResponse:
         path = "/posts/{post_id}"
         path = path.replace("{post_id}", str(post_id))
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if post_body is not None:
             data["post_body"] = post_body
-        return self._request("PUT", path, json=data)
+        raw = self._request("PUT", path, json=data)
+        return Posts_EditResponse.model_validate(raw)
 
     def posts_delete(
         self,
@@ -782,7 +827,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if reason is not None:
             data["reason"] = reason
-        return self._request("DELETE", path, json=data)
+        raw = self._request("DELETE", path, json=data)
+        return raw
 
     def posts_likes(
         self,
@@ -797,7 +843,8 @@ class ForumClient(BaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def posts_like(
         self,
@@ -805,7 +852,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/posts/{post_id}/likes"
         path = path.replace("{post_id}", str(post_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def posts_unlike(
         self,
@@ -813,15 +861,17 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/posts/{post_id}/likes"
         path = path.replace("{post_id}", str(post_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def posts_report_reasons(
         self,
         post_id: int,
-    ) -> dict[str, Any]:
+    ) -> Posts_ReportReasonsResponse:
         path = "/posts/{post_id}/report"
         path = path.replace("{post_id}", str(post_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return Posts_ReportReasonsResponse.model_validate(raw)
 
     def posts_report(
         self,
@@ -834,7 +884,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if message is not None:
             data["message"] = message
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def posts_comments_get(
         self,
@@ -850,7 +901,8 @@ class ForumClient(BaseClient):
             params["before"] = before
         if before_comment is not None:
             params["before_comment"] = before_comment
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def posts_comments_create(
         self,
@@ -864,13 +916,14 @@ class ForumClient(BaseClient):
             data["post_id"] = post_id
         if comment_body is not None:
             data["comment_body"] = comment_body
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def posts_comments_edit(
         self,
         post_comment_id: int,
         comment_body: str,
-    ) -> dict[str, Any]:
+    ) -> Posts_Comments_EditResponse:
         path = "/posts/comments"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -878,7 +931,8 @@ class ForumClient(BaseClient):
             data["post_comment_id"] = post_comment_id
         if comment_body is not None:
             data["comment_body"] = comment_body
-        return self._request("PUT", path, json=data)
+        raw = self._request("PUT", path, json=data)
+        return Posts_Comments_EditResponse.model_validate(raw)
 
     def posts_comments_delete(
         self,
@@ -892,7 +946,8 @@ class ForumClient(BaseClient):
             data["post_comment_id"] = post_comment_id
         if reason is not None:
             data["reason"] = reason
-        return self._request("DELETE", path, json=data)
+        raw = self._request("DELETE", path, json=data)
+        return raw
 
     def posts_comments_report(
         self,
@@ -906,14 +961,15 @@ class ForumClient(BaseClient):
             data["post_comment_id"] = post_comment_id
         if message is not None:
             data["message"] = message
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def users_list(
         self,
         page: int | None = None,
         limit: int | None = None,
         fields_include: list[str] | None = None,
-    ) -> dict[str, Any]:
+    ) -> Users_ListResponse:
         path = "/users"
         params: dict[str, Any] = {}
         if page is not None:
@@ -922,13 +978,15 @@ class ForumClient(BaseClient):
             params["limit"] = limit
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Users_ListResponse.model_validate(raw)
 
     def users_fields(
         self,
     ) -> dict[str, Any]:
         path = "/users/fields"
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def users_find(
         self,
@@ -944,19 +1002,21 @@ class ForumClient(BaseClient):
             params["custom_fields"] = custom_fields
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def users_get(
         self,
         user_id: UserIDModel,
         fields_include: list[str] | None = None,
-    ) -> dict[str, Any]:
+    ) -> Users_GetResponse:
         path = "/users/{user_id}"
         path = path.replace("{user_id}", str(user_id))
         params: dict[str, Any] = {}
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Users_GetResponse.model_validate(raw)
 
     def users_edit(
         self,
@@ -1047,14 +1107,15 @@ class ForumClient(BaseClient):
             data["alert"] = alert
         if fields is not None:
             data["fields"] = fields
-        return self._request("PUT", path, json=data)
+        raw = self._request("PUT", path, json=data)
+        return raw
 
     def users_claims(
         self,
         user_id: UserIDModel,
         type_: str | None = None,
         claim_state: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Users_ClaimsResponse:
         path = "/users/{user_id}/claims"
         path = path.replace("{user_id}", str(user_id))
         params: dict[str, Any] = {}
@@ -1062,7 +1123,8 @@ class ForumClient(BaseClient):
             params["type"] = type_
         if claim_state is not None:
             params["claim_state"] = claim_state
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Users_ClaimsResponse.model_validate(raw)
 
     def users_avatar_upload(
         self,
@@ -1084,7 +1146,8 @@ class ForumClient(BaseClient):
             data["y"] = y
         if crop is not None:
             data["crop"] = crop
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def users_avatar_delete(
         self,
@@ -1092,7 +1155,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/avatar"
         path = path.replace("{user_id}", str(user_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def users_avatar_crop(
         self,
@@ -1111,7 +1175,8 @@ class ForumClient(BaseClient):
             data["y"] = y
         if crop is not None:
             data["crop"] = crop
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def users_background_upload(
         self,
@@ -1133,7 +1198,8 @@ class ForumClient(BaseClient):
             data["y"] = y
         if crop is not None:
             data["crop"] = crop
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def users_background_delete(
         self,
@@ -1141,7 +1207,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/background"
         path = path.replace("{user_id}", str(user_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def users_background_crop(
         self,
@@ -1160,7 +1227,8 @@ class ForumClient(BaseClient):
             data["y"] = y
         if crop is not None:
             data["crop"] = crop
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def users_followers(
         self,
@@ -1178,7 +1246,8 @@ class ForumClient(BaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def users_follow(
         self,
@@ -1186,7 +1255,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/followers"
         path = path.replace("{user_id}", str(user_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def users_unfollow(
         self,
@@ -1194,7 +1264,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/followers"
         path = path.replace("{user_id}", str(user_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def users_followings(
         self,
@@ -1212,7 +1283,8 @@ class ForumClient(BaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def users_likes(
         self,
@@ -1224,7 +1296,7 @@ class ForumClient(BaseClient):
         content_type: str | None = "post",
         search_user_id: int | None = None,
         stats: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Users_LikesResponse:
         path = "/users/{user_id}/likes"
         path = path.replace("{user_id}", str(user_id))
         params: dict[str, Any] = {}
@@ -1242,17 +1314,19 @@ class ForumClient(BaseClient):
             params["search_user_id"] = search_user_id
         if stats is not None:
             params["stats"] = stats
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Users_LikesResponse.model_validate(raw)
 
     def users_ignored(
         self,
         total: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Users_IgnoredResponse:
         path = "/users/ignored"
         params: dict[str, Any] = {}
         if total is not None:
             params["total"] = total
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Users_IgnoredResponse.model_validate(raw)
 
     def users_ignore(
         self,
@@ -1260,7 +1334,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/ignore"
         path = path.replace("{user_id}", str(user_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def users_ignore_edit(
         self,
@@ -1278,7 +1353,8 @@ class ForumClient(BaseClient):
             params["ignore_content"] = ignore_content
         if restrict_view_profile is not None:
             params["restrict_view_profile"] = restrict_view_profile
-        return self._request("PUT", path, params=params)
+        raw = self._request("PUT", path, params=params)
+        return raw
 
     def users_unignore(
         self,
@@ -1286,7 +1362,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/ignore"
         path = path.replace("{user_id}", str(user_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def users_contents(
         self,
@@ -1301,33 +1378,38 @@ class ForumClient(BaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def users_trophies(
         self,
         user_id: UserIDModel,
-    ) -> dict[str, Any]:
+    ) -> Users_TrophiesResponse:
         path = "/users/{user_id}/trophies"
         path = path.replace("{user_id}", str(user_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return Users_TrophiesResponse.model_validate(raw)
 
     def users_secret_answer_types(
         self,
-    ) -> dict[str, Any]:
+    ) -> Users_SecretAnswerTypesResponse:
         path = "/users/secret-answer/types"
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return Users_SecretAnswerTypesResponse.model_validate(raw)
 
     def users_sa_reset(
         self,
-    ) -> dict[str, Any]:
+    ) -> Users_SA_ResetResponse:
         path = "/account/secret-answer/reset"
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return Users_SA_ResetResponse.model_validate(raw)
 
     def users_sa_cancel_reset(
         self,
     ) -> dict[str, Any]:
         path = "/account/secret-answer/reset"
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def profile_posts_list(
         self,
@@ -1348,7 +1430,8 @@ class ForumClient(BaseClient):
             params["limit"] = limit
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def profile_posts_get(
         self,
@@ -1356,7 +1439,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def profile_posts_edit(
         self,
@@ -1372,7 +1456,8 @@ class ForumClient(BaseClient):
             data["post_body"] = post_body
         if disable_comments is not None:
             data["disable_comments"] = disable_comments
-        return self._request("PUT", path, json=data)
+        raw = self._request("PUT", path, json=data)
+        return raw
 
     def profile_posts_delete(
         self,
@@ -1384,15 +1469,17 @@ class ForumClient(BaseClient):
         params: dict[str, Any] = {}
         if reason is not None:
             params["reason"] = reason
-        return self._request("DELETE", path, params=params)
+        raw = self._request("DELETE", path, params=params)
+        return raw
 
     def profile_posts_report_reasons(
         self,
         profile_post_id: int,
-    ) -> dict[str, Any]:
+    ) -> ProfilePosts_ReportReasonsResponse:
         path = "/profile-posts/{profile_post_id}/report"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return ProfilePosts_ReportReasonsResponse.model_validate(raw)
 
     def profile_posts_report(
         self,
@@ -1405,7 +1492,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if message is not None:
             data["message"] = message
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def profile_posts_create(
         self,
@@ -1419,7 +1507,8 @@ class ForumClient(BaseClient):
             data["user_id"] = user_id
         if post_body is not None:
             data["post_body"] = post_body
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def profile_posts_stick(
         self,
@@ -1427,7 +1516,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}/stick"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def profile_posts_unstick(
         self,
@@ -1435,7 +1525,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}/stick"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def profile_posts_likes(
         self,
@@ -1443,7 +1534,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}/likes"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def profile_posts_like(
         self,
@@ -1451,7 +1543,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}/likes"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def profile_posts_unlike(
         self,
@@ -1459,7 +1552,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}/likes"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def profile_posts_comments_list(
         self,
@@ -1475,7 +1569,8 @@ class ForumClient(BaseClient):
             params["before"] = before
         if limit is not None:
             params["limit"] = limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def profile_posts_comments_create(
         self,
@@ -1489,13 +1584,14 @@ class ForumClient(BaseClient):
             data["profile_post_id"] = profile_post_id
         if comment_body is not None:
             data["comment_body"] = comment_body
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def profile_posts_comments_edit(
         self,
         comment_id: int,
         comment_body: str,
-    ) -> dict[str, Any]:
+    ) -> ProfilePosts_Comments_EditResponse:
         path = "/profile-posts/comments"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -1503,7 +1599,8 @@ class ForumClient(BaseClient):
             data["comment_id"] = comment_id
         if comment_body is not None:
             data["comment_body"] = comment_body
-        return self._request("PUT", path, json=data)
+        raw = self._request("PUT", path, json=data)
+        return ProfilePosts_Comments_EditResponse.model_validate(raw)
 
     def profile_posts_comments_delete(
         self,
@@ -1514,7 +1611,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if comment_id is not None:
             data["comment_id"] = comment_id
-        return self._request("DELETE", path, json=data)
+        raw = self._request("DELETE", path, json=data)
+        return raw
 
     def profile_posts_comments_get(
         self,
@@ -1524,7 +1622,8 @@ class ForumClient(BaseClient):
         path = "/profile-posts/{profile_post_id}/comments/{comment_id}"
         path = path.replace("{profile_post_id}", str(profile_post_id))
         path = path.replace("{comment_id}", str(comment_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def profile_posts_comments_report(
         self,
@@ -1537,14 +1636,15 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if message is not None:
             data["message"] = message
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def conversations_list(
         self,
         folder: str | None = None,
         page: int | None = None,
         limit: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Conversations_ListResponse:
         path = "/conversations"
         params: dict[str, Any] = {}
         if folder is not None:
@@ -1553,7 +1653,8 @@ class ForumClient(BaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Conversations_ListResponse.model_validate(raw)
 
     def conversations_create(
         self,
@@ -1566,7 +1667,7 @@ class ForumClient(BaseClient):
         allow_sticky_messages: bool | None = None,
         allow_delete_own_messages: bool | None = None,
         message_body: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Conversations_CreateResponse:
         path = "/conversations"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -1588,7 +1689,8 @@ class ForumClient(BaseClient):
             data["allow_delete_own_messages"] = allow_delete_own_messages
         if message_body is not None:
             data["message_body"] = message_body
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Conversations_CreateResponse.model_validate(raw)
 
     def conversations_update(
         self,
@@ -1617,7 +1719,8 @@ class ForumClient(BaseClient):
             data["allow_sticky_messages"] = allow_sticky_messages
         if allow_delete_own_messages is not None:
             data["allow_delete_own_messages"] = allow_delete_own_messages
-        return self._request("PUT", path, json=data)
+        raw = self._request("PUT", path, json=data)
+        return raw
 
     def conversations_delete(
         self,
@@ -1631,18 +1734,20 @@ class ForumClient(BaseClient):
             data["conversation_id"] = conversation_id
         if delete_type is not None:
             data["delete_type"] = delete_type
-        return self._request("DELETE", path, json=data)
+        raw = self._request("DELETE", path, json=data)
+        return raw
 
     def conversations_start(
         self,
         user_id: UserIDModel,
-    ) -> dict[str, Any]:
+    ) -> Conversations_StartResponse:
         path = "/conversations/start"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Conversations_StartResponse.model_validate(raw)
 
     def conversations_save(
         self,
@@ -1653,7 +1758,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if link is not None:
             data["link"] = link
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def conversations_get(
         self,
@@ -1661,7 +1767,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/conversations/{conversation_id}"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def conversations_messages_list(
         self,
@@ -1671,7 +1778,7 @@ class ForumClient(BaseClient):
         order: str | None = None,
         before: int | None = None,
         after: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Conversations_Messages_ListResponse:
         path = "/conversations/{conversation_id}/messages"
         path = path.replace("{conversation_id}", str(conversation_id))
         params: dict[str, Any] = {}
@@ -1685,14 +1792,15 @@ class ForumClient(BaseClient):
             params["before"] = before
         if after is not None:
             params["after"] = after
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Conversations_Messages_ListResponse.model_validate(raw)
 
     def conversations_messages_create(
         self,
         conversation_id: int,
         message_body: str,
         reply_message_id: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Conversations_Messages_CreateResponse:
         path = "/conversations/{conversation_id}/messages"
         path = path.replace("{conversation_id}", str(conversation_id))
         params: dict[str, Any] = {}
@@ -1701,14 +1809,15 @@ class ForumClient(BaseClient):
             data["reply_message_id"] = reply_message_id
         if message_body is not None:
             data["message_body"] = message_body
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Conversations_Messages_CreateResponse.model_validate(raw)
 
     def conversations_search(
         self,
         q: str | None = None,
         conversation_id: int | None = None,
         search_recipients: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Conversations_SearchResponse:
         path = "/conversations/search"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -1718,7 +1827,8 @@ class ForumClient(BaseClient):
             data["conversation_id"] = conversation_id
         if search_recipients is not None:
             data["search_recipients"] = search_recipients
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Conversations_SearchResponse.model_validate(raw)
 
     def conversations_messages_get(
         self,
@@ -1726,14 +1836,15 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/conversations/messages/{message_id}"
         path = path.replace("{message_id}", str(message_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def conversations_messages_edit(
         self,
         conversation_id: int,
         message_id: int,
         message_body: str,
-    ) -> dict[str, Any]:
+    ) -> Conversations_Messages_EditResponse:
         path = "/conversations/{conversation_id}/messages/{message_id}"
         path = path.replace("{conversation_id}", str(conversation_id))
         path = path.replace("{message_id}", str(message_id))
@@ -1741,7 +1852,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if message_body is not None:
             data["message_body"] = message_body
-        return self._request("PUT", path, json=data)
+        raw = self._request("PUT", path, json=data)
+        return Conversations_Messages_EditResponse.model_validate(raw)
 
     def conversations_messages_delete(
         self,
@@ -1751,7 +1863,8 @@ class ForumClient(BaseClient):
         path = "/conversations/{conversation_id}/messages/{message_id}"
         path = path.replace("{conversation_id}", str(conversation_id))
         path = path.replace("{message_id}", str(message_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def conversations_invite(
         self,
@@ -1764,7 +1877,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if recipients is not None:
             data["recipients"] = recipients
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def conversations_kick(
         self,
@@ -1777,7 +1891,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def conversations_read(
         self,
@@ -1785,13 +1900,15 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/conversations/{conversation_id}/read"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def conversations_read_all(
         self,
-    ) -> dict[str, Any]:
+    ) -> Conversations_ReadAllResponse:
         path = "/conversations/read-all"
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return Conversations_ReadAllResponse.model_validate(raw)
 
     def conversations_messages_stick(
         self,
@@ -1801,7 +1918,8 @@ class ForumClient(BaseClient):
         path = "/conversations/{conversation_id}/messages/{message_id}/stick"
         path = path.replace("{conversation_id}", str(conversation_id))
         path = path.replace("{message_id}", str(message_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return raw
 
     def conversations_messages_unstick(
         self,
@@ -1811,39 +1929,44 @@ class ForumClient(BaseClient):
         path = "/conversations/{conversation_id}/messages/{message_id}/stick"
         path = path.replace("{conversation_id}", str(conversation_id))
         path = path.replace("{message_id}", str(message_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return raw
 
     def conversations_star(
         self,
         conversation_id: int,
-    ) -> dict[str, Any]:
+    ) -> Conversations_StarResponse:
         path = "/conversations/{conversation_id}/star"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return Conversations_StarResponse.model_validate(raw)
 
     def conversations_unstar(
         self,
         conversation_id: int,
-    ) -> dict[str, Any]:
+    ) -> Conversations_UnstarResponse:
         path = "/conversations/{conversation_id}/star"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return Conversations_UnstarResponse.model_validate(raw)
 
     def conversations_alerts_enable(
         self,
         conversation_id: int,
-    ) -> dict[str, Any]:
+    ) -> Conversations_Alerts_EnableResponse:
         path = "/conversations/{conversation_id}/alerts"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return Conversations_Alerts_EnableResponse.model_validate(raw)
 
     def conversations_alerts_disable(
         self,
         conversation_id: int,
-    ) -> dict[str, Any]:
+    ) -> Conversations_Alerts_DisableResponse:
         path = "/conversations/{conversation_id}/alerts"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return self._request("DELETE", path)
+        raw = self._request("DELETE", path)
+        return Conversations_Alerts_DisableResponse.model_validate(raw)
 
     def notifications_list(
         self,
@@ -1859,7 +1982,8 @@ class ForumClient(BaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def notifications_get(
         self,
@@ -1867,7 +1991,8 @@ class ForumClient(BaseClient):
     ) -> dict[str, Any]:
         path = "/notifications/{notification_id}/content"
         path = path.replace("{notification_id}", str(notification_id))
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def notifications_read(
         self,
@@ -1878,13 +2003,15 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if notification_id is not None:
             data["notification_id"] = notification_id
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def tags_popular(
         self,
     ) -> dict[str, Any]:
         path = "/tags"
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return raw
 
     def tags_list(
         self,
@@ -1897,7 +2024,8 @@ class ForumClient(BaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def tags_get(
         self,
@@ -1912,7 +2040,8 @@ class ForumClient(BaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def tags_find(
         self,
@@ -1922,7 +2051,8 @@ class ForumClient(BaseClient):
         params: dict[str, Any] = {}
         if tag is not None:
             params["tag"] = tag
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return raw
 
     def search_all(
         self,
@@ -1932,7 +2062,7 @@ class ForumClient(BaseClient):
         user_id: UserIDModel | None = None,
         page: int | None = None,
         limit: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Search_AllResponse:
         path = "/search"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -1948,7 +2078,8 @@ class ForumClient(BaseClient):
             data["page"] = page
         if limit is not None:
             data["limit"] = limit
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Search_AllResponse.model_validate(raw)
 
     def search_threads(
         self,
@@ -1977,7 +2108,8 @@ class ForumClient(BaseClient):
             data["limit"] = limit
         if data_limit is not None:
             data["data_limit"] = data_limit
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def search_posts(
         self,
@@ -2006,18 +2138,20 @@ class ForumClient(BaseClient):
             data["limit"] = limit
         if data_limit is not None:
             data["data_limit"] = data_limit
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def search_users(
         self,
         q: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Search_UsersResponse:
         path = "/search/users"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if q is not None:
             data["q"] = q
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Search_UsersResponse.model_validate(raw)
 
     def search_profile_posts(
         self,
@@ -2037,7 +2171,8 @@ class ForumClient(BaseClient):
             data["page"] = page
         if limit is not None:
             data["limit"] = limit
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def search_tagged(
         self,
@@ -2057,7 +2192,8 @@ class ForumClient(BaseClient):
             data["page"] = page
         if limit is not None:
             data["limit"] = limit
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def search_results(
         self,
@@ -2073,43 +2209,47 @@ class ForumClient(BaseClient):
             data["page"] = page
         if limit is not None:
             data["limit"] = limit
-        return self._request("GET", path, json=data)
+        raw = self._request("GET", path, json=data)
+        return raw
 
     def batch_execute(
         self,
-    ) -> dict[str, Any]:
+    ) -> Batch_ExecuteResponse:
         path = "/batch"
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return Batch_ExecuteResponse.model_validate(raw)
 
     def chatbox_index(
         self,
         room_id: RoomIDModel | None = None,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_IndexResponse:
         path = "/chatbox"
         params: dict[str, Any] = {}
         if room_id is not None:
             params["room_id"] = room_id
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Chatbox_IndexResponse.model_validate(raw)
 
     def chatbox_get_messages(
         self,
         room_id: RoomIDModel,
         before_message_id: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_GetMessagesResponse:
         path = "/chatbox/messages"
         params: dict[str, Any] = {}
         if room_id is not None:
             params["room_id"] = room_id
         if before_message_id is not None:
             params["before_message_id"] = before_message_id
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Chatbox_GetMessagesResponse.model_validate(raw)
 
     def chatbox_post_message(
         self,
         room_id: RoomIDModel,
         message: str,
         reply_message_id: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_PostMessageResponse:
         path = "/chatbox/messages"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -2119,13 +2259,14 @@ class ForumClient(BaseClient):
             data["reply_message_id"] = reply_message_id
         if message is not None:
             data["message"] = message
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return Chatbox_PostMessageResponse.model_validate(raw)
 
     def chatbox_edit_message(
         self,
         message_id: int,
         message: str,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_EditMessageResponse:
         path = "/chatbox/messages"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -2133,7 +2274,8 @@ class ForumClient(BaseClient):
             data["message_id"] = message_id
         if message is not None:
             data["message"] = message
-        return self._request("PUT", path, json=data)
+        raw = self._request("PUT", path, json=data)
+        return Chatbox_EditMessageResponse.model_validate(raw)
 
     def chatbox_delete_message(
         self,
@@ -2144,27 +2286,30 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if message_id is not None:
             data["message_id"] = message_id
-        return self._request("DELETE", path, json=data)
+        raw = self._request("DELETE", path, json=data)
+        return raw
 
     def chatbox_online(
         self,
         room_id: RoomIDModel,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_OnlineResponse:
         path = "/chatbox/messages/online"
         params: dict[str, Any] = {}
         if room_id is not None:
             params["room_id"] = room_id
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Chatbox_OnlineResponse.model_validate(raw)
 
     def chatbox_report_reasons(
         self,
         message_id: int,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_ReportReasonsResponse:
         path = "/chatbox/messages/report"
         params: dict[str, Any] = {}
         if message_id is not None:
             params["message_id"] = message_id
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Chatbox_ReportReasonsResponse.model_validate(raw)
 
     def chatbox_report(
         self,
@@ -2178,23 +2323,26 @@ class ForumClient(BaseClient):
             data["message_id"] = message_id
         if reason is not None:
             data["reason"] = reason
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def chatbox_get_leaderboard(
         self,
         duration: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_GetLeaderboardResponse:
         path = "/chatbox/messages/leaderboard"
         params: dict[str, Any] = {}
         if duration is not None:
             params["duration"] = duration
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Chatbox_GetLeaderboardResponse.model_validate(raw)
 
     def chatbox_get_ignore(
         self,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_GetIgnoreResponse:
         path = "/chatbox/ignore"
-        return self._request("GET", path)
+        raw = self._request("GET", path)
+        return Chatbox_GetIgnoreResponse.model_validate(raw)
 
     def chatbox_post_ignore(
         self,
@@ -2205,7 +2353,8 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
-        return self._request("POST", path, json=data)
+        raw = self._request("POST", path, json=data)
+        return raw
 
     def chatbox_delete_ignore(
         self,
@@ -2216,23 +2365,26 @@ class ForumClient(BaseClient):
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
-        return self._request("DELETE", path, json=data)
+        raw = self._request("DELETE", path, json=data)
+        return raw
 
     def forms_list(
         self,
         page: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Forms_ListResponse:
         path = "/forms"
         params: dict[str, Any] = {}
         if page is not None:
             params["page"] = page
-        return self._request("GET", path, params=params)
+        raw = self._request("GET", path, params=params)
+        return Forms_ListResponse.model_validate(raw)
 
     def forms_create(
         self,
-    ) -> dict[str, Any]:
+    ) -> Forms_CreateResponse:
         path = "/forms/save"
-        return self._request("POST", path)
+        raw = self._request("POST", path)
+        return Forms_CreateResponse.model_validate(raw)
 
 
 class AsyncForumClient(AsyncBaseClient):
@@ -2241,19 +2393,21 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def o_auth_token(
         self,
-    ) -> dict[str, Any]:
+    ) -> OAuth_TokenResponse:
         path = "/oauth/token"
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return OAuth_TokenResponse.model_validate(raw)
 
     async def assets_css(
         self,
         css: list[str] | None = None,
-    ) -> dict[str, Any]:
+    ) -> Assets_CssResponse:
         path = "/css"
         params: dict[str, Any] = {}
         if css is not None:
             params["css"] = css
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Assets_CssResponse.model_validate(raw)
 
     async def categories_list(
         self,
@@ -2269,7 +2423,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["parent_forum_id"] = parent_forum_id
         if order is not None:
             params["order"] = order
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def categories_get(
         self,
@@ -2277,14 +2432,15 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/categories/{category_id}"
         path = path.replace("{category_id}", str(category_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def forums_list(
         self,
         parent_category_id: int | None = None,
         parent_forum_id: int | None = None,
         order: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Forums_ListResponse:
         path = "/forums"
         params: dict[str, Any] = {}
         if parent_category_id is not None:
@@ -2293,13 +2449,15 @@ class AsyncForumClient(AsyncBaseClient):
             params["parent_forum_id"] = parent_forum_id
         if order is not None:
             params["order"] = order
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Forums_ListResponse.model_validate(raw)
 
     async def forums_grouped(
         self,
-    ) -> dict[str, Any]:
+    ) -> Forums_GroupedResponse:
         path = "/forums/grouped"
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return Forums_GroupedResponse.model_validate(raw)
 
     async def forums_get(
         self,
@@ -2307,7 +2465,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/forums/{forum_id}"
         path = path.replace("{forum_id}", str(forum_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def forums_followers(
         self,
@@ -2315,7 +2474,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/forums/{forum_id}/followers"
         path = path.replace("{forum_id}", str(forum_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def forums_follow(
         self,
@@ -2340,7 +2500,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["prefix_ids"] = prefix_ids
         if minimal_contest_amount is not None:
             data["minimal_contest_amount"] = minimal_contest_amount
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def forums_unfollow(
         self,
@@ -2348,7 +2509,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/forums/{forum_id}/followers"
         path = path.replace("{forum_id}", str(forum_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def forums_followed(
         self,
@@ -2358,13 +2520,15 @@ class AsyncForumClient(AsyncBaseClient):
         params: dict[str, Any] = {}
         if total is not None:
             params["total"] = total
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def forums_get_feed_options(
         self,
-    ) -> dict[str, Any]:
+    ) -> Forums_GetFeedOptionsResponse:
         path = "/forums/feed/options"
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return Forums_GetFeedOptionsResponse.model_validate(raw)
 
     async def forums_edit_feed_options(
         self,
@@ -2378,21 +2542,24 @@ class AsyncForumClient(AsyncBaseClient):
             data["node_ids"] = node_ids
         if keywords is not None:
             data["keywords"] = keywords
-        return await self._request("PUT", path, json=data)
+        raw = await self._request("PUT", path, json=data)
+        return raw
 
     async def links_list(
         self,
-    ) -> dict[str, Any]:
+    ) -> Links_ListResponse:
         path = "/link-forums"
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return Links_ListResponse.model_validate(raw)
 
     async def links_get(
         self,
         link_id: int,
-    ) -> dict[str, Any]:
+    ) -> Links_GetResponse:
         path = "/link-forums/{link_id}"
         path = path.replace("{link_id}", str(link_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return Links_GetResponse.model_validate(raw)
 
     async def pages_list(
         self,
@@ -2405,7 +2572,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["parent_page_id"] = parent_page_id
         if order is not None:
             params["order"] = order
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def pages_get(
         self,
@@ -2413,7 +2581,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/pages/{page_id}"
         path = path.replace("{page_id}", str(page_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def navigation_list(
         self,
@@ -2423,7 +2592,8 @@ class AsyncForumClient(AsyncBaseClient):
         params: dict[str, Any] = {}
         if parent is not None:
             params["parent"] = parent
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def threads_list(
         self,
@@ -2484,7 +2654,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["thread_update_date"] = thread_update_date
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def threads_create(
         self,
@@ -2504,7 +2675,7 @@ class AsyncForumClient(AsyncBaseClient):
         watch_thread_state: bool | None = None,
         watch_thread: bool | None = None,
         watch_thread_email: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Threads_CreateResponse:
         path = "/threads"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -2540,7 +2711,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["watch_thread"] = watch_thread
         if watch_thread_email is not None:
             data["watch_thread_email"] = watch_thread_email
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Threads_CreateResponse.model_validate(raw)
 
     async def threads_create_contest(
         self,
@@ -2570,7 +2742,7 @@ class AsyncForumClient(AsyncBaseClient):
         watch_thread_state: bool | None = None,
         watch_thread: bool | None = None,
         watch_thread_email: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Threads_CreateContestResponse:
         path = "/contests"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -2626,7 +2798,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["watch_thread"] = watch_thread
         if watch_thread_email is not None:
             data["watch_thread_email"] = watch_thread_email
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Threads_CreateContestResponse.model_validate(raw)
 
     async def threads_claim(
         self,
@@ -2652,7 +2825,7 @@ class AsyncForumClient(AsyncBaseClient):
         watch_thread_state: bool | None = None,
         watch_thread: bool | None = None,
         watch_thread_email: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Threads_ClaimResponse:
         path = "/claims"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -2700,19 +2873,21 @@ class AsyncForumClient(AsyncBaseClient):
             data["watch_thread_email"] = watch_thread_email
         if post_body is not None:
             data["post_body"] = post_body
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Threads_ClaimResponse.model_validate(raw)
 
     async def threads_get(
         self,
         thread_id: int,
         fields_include: list[str] | None = None,
-    ) -> dict[str, Any]:
+    ) -> Threads_GetResponse:
         path = "/threads/{thread_id}"
         path = path.replace("{thread_id}", str(thread_id))
         params: dict[str, Any] = {}
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Threads_GetResponse.model_validate(raw)
 
     async def threads_edit(
         self,
@@ -2726,7 +2901,7 @@ class AsyncForumClient(AsyncBaseClient):
         allow_ask_hidden_content: bool | None = None,
         reply_group: int | None = None,
         comment_ignore_group: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Threads_EditResponse:
         path = "/threads/{thread_id}"
         path = path.replace("{thread_id}", str(thread_id))
         params: dict[str, Any] = {}
@@ -2749,7 +2924,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["reply_group"] = reply_group
         if comment_ignore_group is not None:
             data["comment_ignore_group"] = comment_ignore_group
-        return await self._request("PUT", path, json=data)
+        raw = await self._request("PUT", path, json=data)
+        return Threads_EditResponse.model_validate(raw)
 
     async def threads_delete(
         self,
@@ -2762,7 +2938,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if reason is not None:
             data["reason"] = reason
-        return await self._request("DELETE", path, json=data)
+        raw = await self._request("DELETE", path, json=data)
+        return raw
 
     async def threads_move(
         self,
@@ -2790,7 +2967,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["apply_thread_prefix"] = apply_thread_prefix
         if send_alert is not None:
             data["send_alert"] = send_alert
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def threads_bump(
         self,
@@ -2798,7 +2976,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/bump"
         path = path.replace("{thread_id}", str(thread_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def threads_hide(
         self,
@@ -2806,7 +2985,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/hide"
         path = path.replace("{thread_id}", str(thread_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def threads_star(
         self,
@@ -2814,7 +2994,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/star"
         path = path.replace("{thread_id}", str(thread_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def threads_unstar(
         self,
@@ -2822,7 +3003,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/star"
         path = path.replace("{thread_id}", str(thread_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def threads_followers(
         self,
@@ -2830,7 +3012,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/followers"
         path = path.replace("{thread_id}", str(thread_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def threads_follow(
         self,
@@ -2843,7 +3026,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if email is not None:
             data["email"] = email
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def threads_unfollow(
         self,
@@ -2851,7 +3035,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/followers"
         path = path.replace("{thread_id}", str(thread_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def threads_followed(
         self,
@@ -2864,7 +3049,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["total"] = total
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def threads_navigation(
         self,
@@ -2872,7 +3058,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/navigation"
         path = path.replace("{thread_id}", str(thread_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def threads_poll_get(
         self,
@@ -2880,7 +3067,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/threads/{thread_id}/poll"
         path = path.replace("{thread_id}", str(thread_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def threads_poll_vote(
         self,
@@ -2896,7 +3084,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["response_id"] = response_id
         if response_ids is not None:
             data["response_ids"] = response_ids
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def threads_unread(
         self,
@@ -2912,7 +3101,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["forum_id"] = forum_id
         if data_limit is not None:
             params["data_limit"] = data_limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def threads_recent(
         self,
@@ -2931,7 +3121,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["forum_id"] = forum_id
         if data_limit is not None:
             params["data_limit"] = data_limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def threads_finish(
         self,
@@ -2939,7 +3130,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/contests/{thread_id}/finish"
         path = path.replace("{thread_id}", str(thread_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def posts_list(
         self,
@@ -2961,14 +3153,15 @@ class AsyncForumClient(AsyncBaseClient):
             params["limit"] = limit
         if order is not None:
             params["order"] = order
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def posts_create(
         self,
         post_body: str,
         thread_id: int | None = None,
         quote_post_id: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Posts_CreateResponse:
         path = "/posts"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -2978,28 +3171,31 @@ class AsyncForumClient(AsyncBaseClient):
             data["thread_id"] = thread_id
         if quote_post_id is not None:
             data["quote_post_id"] = quote_post_id
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Posts_CreateResponse.model_validate(raw)
 
     async def posts_get(
         self,
         post_id: int,
-    ) -> dict[str, Any]:
+    ) -> Posts_GetResponse:
         path = "/posts/{post_id}"
         path = path.replace("{post_id}", str(post_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return Posts_GetResponse.model_validate(raw)
 
     async def posts_edit(
         self,
         post_id: int,
         post_body: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Posts_EditResponse:
         path = "/posts/{post_id}"
         path = path.replace("{post_id}", str(post_id))
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if post_body is not None:
             data["post_body"] = post_body
-        return await self._request("PUT", path, json=data)
+        raw = await self._request("PUT", path, json=data)
+        return Posts_EditResponse.model_validate(raw)
 
     async def posts_delete(
         self,
@@ -3012,7 +3208,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if reason is not None:
             data["reason"] = reason
-        return await self._request("DELETE", path, json=data)
+        raw = await self._request("DELETE", path, json=data)
+        return raw
 
     async def posts_likes(
         self,
@@ -3027,7 +3224,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def posts_like(
         self,
@@ -3035,7 +3233,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/posts/{post_id}/likes"
         path = path.replace("{post_id}", str(post_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def posts_unlike(
         self,
@@ -3043,15 +3242,17 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/posts/{post_id}/likes"
         path = path.replace("{post_id}", str(post_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def posts_report_reasons(
         self,
         post_id: int,
-    ) -> dict[str, Any]:
+    ) -> Posts_ReportReasonsResponse:
         path = "/posts/{post_id}/report"
         path = path.replace("{post_id}", str(post_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return Posts_ReportReasonsResponse.model_validate(raw)
 
     async def posts_report(
         self,
@@ -3064,7 +3265,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if message is not None:
             data["message"] = message
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def posts_comments_get(
         self,
@@ -3080,7 +3282,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["before"] = before
         if before_comment is not None:
             params["before_comment"] = before_comment
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def posts_comments_create(
         self,
@@ -3094,13 +3297,14 @@ class AsyncForumClient(AsyncBaseClient):
             data["post_id"] = post_id
         if comment_body is not None:
             data["comment_body"] = comment_body
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def posts_comments_edit(
         self,
         post_comment_id: int,
         comment_body: str,
-    ) -> dict[str, Any]:
+    ) -> Posts_Comments_EditResponse:
         path = "/posts/comments"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -3108,7 +3312,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["post_comment_id"] = post_comment_id
         if comment_body is not None:
             data["comment_body"] = comment_body
-        return await self._request("PUT", path, json=data)
+        raw = await self._request("PUT", path, json=data)
+        return Posts_Comments_EditResponse.model_validate(raw)
 
     async def posts_comments_delete(
         self,
@@ -3122,7 +3327,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["post_comment_id"] = post_comment_id
         if reason is not None:
             data["reason"] = reason
-        return await self._request("DELETE", path, json=data)
+        raw = await self._request("DELETE", path, json=data)
+        return raw
 
     async def posts_comments_report(
         self,
@@ -3136,14 +3342,15 @@ class AsyncForumClient(AsyncBaseClient):
             data["post_comment_id"] = post_comment_id
         if message is not None:
             data["message"] = message
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def users_list(
         self,
         page: int | None = None,
         limit: int | None = None,
         fields_include: list[str] | None = None,
-    ) -> dict[str, Any]:
+    ) -> Users_ListResponse:
         path = "/users"
         params: dict[str, Any] = {}
         if page is not None:
@@ -3152,13 +3359,15 @@ class AsyncForumClient(AsyncBaseClient):
             params["limit"] = limit
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Users_ListResponse.model_validate(raw)
 
     async def users_fields(
         self,
     ) -> dict[str, Any]:
         path = "/users/fields"
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def users_find(
         self,
@@ -3174,19 +3383,21 @@ class AsyncForumClient(AsyncBaseClient):
             params["custom_fields"] = custom_fields
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def users_get(
         self,
         user_id: UserIDModel,
         fields_include: list[str] | None = None,
-    ) -> dict[str, Any]:
+    ) -> Users_GetResponse:
         path = "/users/{user_id}"
         path = path.replace("{user_id}", str(user_id))
         params: dict[str, Any] = {}
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Users_GetResponse.model_validate(raw)
 
     async def users_edit(
         self,
@@ -3277,14 +3488,15 @@ class AsyncForumClient(AsyncBaseClient):
             data["alert"] = alert
         if fields is not None:
             data["fields"] = fields
-        return await self._request("PUT", path, json=data)
+        raw = await self._request("PUT", path, json=data)
+        return raw
 
     async def users_claims(
         self,
         user_id: UserIDModel,
         type_: str | None = None,
         claim_state: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Users_ClaimsResponse:
         path = "/users/{user_id}/claims"
         path = path.replace("{user_id}", str(user_id))
         params: dict[str, Any] = {}
@@ -3292,7 +3504,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["type"] = type_
         if claim_state is not None:
             params["claim_state"] = claim_state
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Users_ClaimsResponse.model_validate(raw)
 
     async def users_avatar_upload(
         self,
@@ -3314,7 +3527,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["y"] = y
         if crop is not None:
             data["crop"] = crop
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def users_avatar_delete(
         self,
@@ -3322,7 +3536,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/avatar"
         path = path.replace("{user_id}", str(user_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def users_avatar_crop(
         self,
@@ -3341,7 +3556,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["y"] = y
         if crop is not None:
             data["crop"] = crop
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def users_background_upload(
         self,
@@ -3363,7 +3579,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["y"] = y
         if crop is not None:
             data["crop"] = crop
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def users_background_delete(
         self,
@@ -3371,7 +3588,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/background"
         path = path.replace("{user_id}", str(user_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def users_background_crop(
         self,
@@ -3390,7 +3608,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["y"] = y
         if crop is not None:
             data["crop"] = crop
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def users_followers(
         self,
@@ -3408,7 +3627,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def users_follow(
         self,
@@ -3416,7 +3636,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/followers"
         path = path.replace("{user_id}", str(user_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def users_unfollow(
         self,
@@ -3424,7 +3645,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/followers"
         path = path.replace("{user_id}", str(user_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def users_followings(
         self,
@@ -3442,7 +3664,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def users_likes(
         self,
@@ -3454,7 +3677,7 @@ class AsyncForumClient(AsyncBaseClient):
         content_type: str | None = "post",
         search_user_id: int | None = None,
         stats: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Users_LikesResponse:
         path = "/users/{user_id}/likes"
         path = path.replace("{user_id}", str(user_id))
         params: dict[str, Any] = {}
@@ -3472,17 +3695,19 @@ class AsyncForumClient(AsyncBaseClient):
             params["search_user_id"] = search_user_id
         if stats is not None:
             params["stats"] = stats
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Users_LikesResponse.model_validate(raw)
 
     async def users_ignored(
         self,
         total: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Users_IgnoredResponse:
         path = "/users/ignored"
         params: dict[str, Any] = {}
         if total is not None:
             params["total"] = total
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Users_IgnoredResponse.model_validate(raw)
 
     async def users_ignore(
         self,
@@ -3490,7 +3715,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/ignore"
         path = path.replace("{user_id}", str(user_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def users_ignore_edit(
         self,
@@ -3508,7 +3734,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["ignore_content"] = ignore_content
         if restrict_view_profile is not None:
             params["restrict_view_profile"] = restrict_view_profile
-        return await self._request("PUT", path, params=params)
+        raw = await self._request("PUT", path, params=params)
+        return raw
 
     async def users_unignore(
         self,
@@ -3516,7 +3743,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/users/{user_id}/ignore"
         path = path.replace("{user_id}", str(user_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def users_contents(
         self,
@@ -3531,33 +3759,38 @@ class AsyncForumClient(AsyncBaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def users_trophies(
         self,
         user_id: UserIDModel,
-    ) -> dict[str, Any]:
+    ) -> Users_TrophiesResponse:
         path = "/users/{user_id}/trophies"
         path = path.replace("{user_id}", str(user_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return Users_TrophiesResponse.model_validate(raw)
 
     async def users_secret_answer_types(
         self,
-    ) -> dict[str, Any]:
+    ) -> Users_SecretAnswerTypesResponse:
         path = "/users/secret-answer/types"
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return Users_SecretAnswerTypesResponse.model_validate(raw)
 
     async def users_sa_reset(
         self,
-    ) -> dict[str, Any]:
+    ) -> Users_SA_ResetResponse:
         path = "/account/secret-answer/reset"
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return Users_SA_ResetResponse.model_validate(raw)
 
     async def users_sa_cancel_reset(
         self,
     ) -> dict[str, Any]:
         path = "/account/secret-answer/reset"
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def profile_posts_list(
         self,
@@ -3578,7 +3811,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["limit"] = limit
         if fields_include is not None:
             params["fields_include"] = fields_include
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def profile_posts_get(
         self,
@@ -3586,7 +3820,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def profile_posts_edit(
         self,
@@ -3602,7 +3837,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["post_body"] = post_body
         if disable_comments is not None:
             data["disable_comments"] = disable_comments
-        return await self._request("PUT", path, json=data)
+        raw = await self._request("PUT", path, json=data)
+        return raw
 
     async def profile_posts_delete(
         self,
@@ -3614,15 +3850,17 @@ class AsyncForumClient(AsyncBaseClient):
         params: dict[str, Any] = {}
         if reason is not None:
             params["reason"] = reason
-        return await self._request("DELETE", path, params=params)
+        raw = await self._request("DELETE", path, params=params)
+        return raw
 
     async def profile_posts_report_reasons(
         self,
         profile_post_id: int,
-    ) -> dict[str, Any]:
+    ) -> ProfilePosts_ReportReasonsResponse:
         path = "/profile-posts/{profile_post_id}/report"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return ProfilePosts_ReportReasonsResponse.model_validate(raw)
 
     async def profile_posts_report(
         self,
@@ -3635,7 +3873,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if message is not None:
             data["message"] = message
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def profile_posts_create(
         self,
@@ -3649,7 +3888,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["user_id"] = user_id
         if post_body is not None:
             data["post_body"] = post_body
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def profile_posts_stick(
         self,
@@ -3657,7 +3897,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}/stick"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def profile_posts_unstick(
         self,
@@ -3665,7 +3906,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}/stick"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def profile_posts_likes(
         self,
@@ -3673,7 +3915,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}/likes"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def profile_posts_like(
         self,
@@ -3681,7 +3924,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}/likes"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def profile_posts_unlike(
         self,
@@ -3689,7 +3933,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/profile-posts/{profile_post_id}/likes"
         path = path.replace("{profile_post_id}", str(profile_post_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def profile_posts_comments_list(
         self,
@@ -3705,7 +3950,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["before"] = before
         if limit is not None:
             params["limit"] = limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def profile_posts_comments_create(
         self,
@@ -3719,13 +3965,14 @@ class AsyncForumClient(AsyncBaseClient):
             data["profile_post_id"] = profile_post_id
         if comment_body is not None:
             data["comment_body"] = comment_body
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def profile_posts_comments_edit(
         self,
         comment_id: int,
         comment_body: str,
-    ) -> dict[str, Any]:
+    ) -> ProfilePosts_Comments_EditResponse:
         path = "/profile-posts/comments"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -3733,7 +3980,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["comment_id"] = comment_id
         if comment_body is not None:
             data["comment_body"] = comment_body
-        return await self._request("PUT", path, json=data)
+        raw = await self._request("PUT", path, json=data)
+        return ProfilePosts_Comments_EditResponse.model_validate(raw)
 
     async def profile_posts_comments_delete(
         self,
@@ -3744,7 +3992,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if comment_id is not None:
             data["comment_id"] = comment_id
-        return await self._request("DELETE", path, json=data)
+        raw = await self._request("DELETE", path, json=data)
+        return raw
 
     async def profile_posts_comments_get(
         self,
@@ -3754,7 +4003,8 @@ class AsyncForumClient(AsyncBaseClient):
         path = "/profile-posts/{profile_post_id}/comments/{comment_id}"
         path = path.replace("{profile_post_id}", str(profile_post_id))
         path = path.replace("{comment_id}", str(comment_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def profile_posts_comments_report(
         self,
@@ -3767,14 +4017,15 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if message is not None:
             data["message"] = message
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def conversations_list(
         self,
         folder: str | None = None,
         page: int | None = None,
         limit: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Conversations_ListResponse:
         path = "/conversations"
         params: dict[str, Any] = {}
         if folder is not None:
@@ -3783,7 +4034,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Conversations_ListResponse.model_validate(raw)
 
     async def conversations_create(
         self,
@@ -3796,7 +4048,7 @@ class AsyncForumClient(AsyncBaseClient):
         allow_sticky_messages: bool | None = None,
         allow_delete_own_messages: bool | None = None,
         message_body: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Conversations_CreateResponse:
         path = "/conversations"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -3818,7 +4070,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["allow_delete_own_messages"] = allow_delete_own_messages
         if message_body is not None:
             data["message_body"] = message_body
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Conversations_CreateResponse.model_validate(raw)
 
     async def conversations_update(
         self,
@@ -3847,7 +4100,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["allow_sticky_messages"] = allow_sticky_messages
         if allow_delete_own_messages is not None:
             data["allow_delete_own_messages"] = allow_delete_own_messages
-        return await self._request("PUT", path, json=data)
+        raw = await self._request("PUT", path, json=data)
+        return raw
 
     async def conversations_delete(
         self,
@@ -3861,18 +4115,20 @@ class AsyncForumClient(AsyncBaseClient):
             data["conversation_id"] = conversation_id
         if delete_type is not None:
             data["delete_type"] = delete_type
-        return await self._request("DELETE", path, json=data)
+        raw = await self._request("DELETE", path, json=data)
+        return raw
 
     async def conversations_start(
         self,
         user_id: UserIDModel,
-    ) -> dict[str, Any]:
+    ) -> Conversations_StartResponse:
         path = "/conversations/start"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Conversations_StartResponse.model_validate(raw)
 
     async def conversations_save(
         self,
@@ -3883,7 +4139,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if link is not None:
             data["link"] = link
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def conversations_get(
         self,
@@ -3891,7 +4148,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/conversations/{conversation_id}"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def conversations_messages_list(
         self,
@@ -3901,7 +4159,7 @@ class AsyncForumClient(AsyncBaseClient):
         order: str | None = None,
         before: int | None = None,
         after: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Conversations_Messages_ListResponse:
         path = "/conversations/{conversation_id}/messages"
         path = path.replace("{conversation_id}", str(conversation_id))
         params: dict[str, Any] = {}
@@ -3915,14 +4173,15 @@ class AsyncForumClient(AsyncBaseClient):
             params["before"] = before
         if after is not None:
             params["after"] = after
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Conversations_Messages_ListResponse.model_validate(raw)
 
     async def conversations_messages_create(
         self,
         conversation_id: int,
         message_body: str,
         reply_message_id: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Conversations_Messages_CreateResponse:
         path = "/conversations/{conversation_id}/messages"
         path = path.replace("{conversation_id}", str(conversation_id))
         params: dict[str, Any] = {}
@@ -3931,14 +4190,15 @@ class AsyncForumClient(AsyncBaseClient):
             data["reply_message_id"] = reply_message_id
         if message_body is not None:
             data["message_body"] = message_body
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Conversations_Messages_CreateResponse.model_validate(raw)
 
     async def conversations_search(
         self,
         q: str | None = None,
         conversation_id: int | None = None,
         search_recipients: bool | None = None,
-    ) -> dict[str, Any]:
+    ) -> Conversations_SearchResponse:
         path = "/conversations/search"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -3948,7 +4208,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["conversation_id"] = conversation_id
         if search_recipients is not None:
             data["search_recipients"] = search_recipients
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Conversations_SearchResponse.model_validate(raw)
 
     async def conversations_messages_get(
         self,
@@ -3956,14 +4217,15 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/conversations/messages/{message_id}"
         path = path.replace("{message_id}", str(message_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def conversations_messages_edit(
         self,
         conversation_id: int,
         message_id: int,
         message_body: str,
-    ) -> dict[str, Any]:
+    ) -> Conversations_Messages_EditResponse:
         path = "/conversations/{conversation_id}/messages/{message_id}"
         path = path.replace("{conversation_id}", str(conversation_id))
         path = path.replace("{message_id}", str(message_id))
@@ -3971,7 +4233,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if message_body is not None:
             data["message_body"] = message_body
-        return await self._request("PUT", path, json=data)
+        raw = await self._request("PUT", path, json=data)
+        return Conversations_Messages_EditResponse.model_validate(raw)
 
     async def conversations_messages_delete(
         self,
@@ -3981,7 +4244,8 @@ class AsyncForumClient(AsyncBaseClient):
         path = "/conversations/{conversation_id}/messages/{message_id}"
         path = path.replace("{conversation_id}", str(conversation_id))
         path = path.replace("{message_id}", str(message_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def conversations_invite(
         self,
@@ -3994,7 +4258,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if recipients is not None:
             data["recipients"] = recipients
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def conversations_kick(
         self,
@@ -4007,7 +4272,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def conversations_read(
         self,
@@ -4015,13 +4281,15 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/conversations/{conversation_id}/read"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def conversations_read_all(
         self,
-    ) -> dict[str, Any]:
+    ) -> Conversations_ReadAllResponse:
         path = "/conversations/read-all"
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return Conversations_ReadAllResponse.model_validate(raw)
 
     async def conversations_messages_stick(
         self,
@@ -4031,7 +4299,8 @@ class AsyncForumClient(AsyncBaseClient):
         path = "/conversations/{conversation_id}/messages/{message_id}/stick"
         path = path.replace("{conversation_id}", str(conversation_id))
         path = path.replace("{message_id}", str(message_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return raw
 
     async def conversations_messages_unstick(
         self,
@@ -4041,39 +4310,44 @@ class AsyncForumClient(AsyncBaseClient):
         path = "/conversations/{conversation_id}/messages/{message_id}/stick"
         path = path.replace("{conversation_id}", str(conversation_id))
         path = path.replace("{message_id}", str(message_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return raw
 
     async def conversations_star(
         self,
         conversation_id: int,
-    ) -> dict[str, Any]:
+    ) -> Conversations_StarResponse:
         path = "/conversations/{conversation_id}/star"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return Conversations_StarResponse.model_validate(raw)
 
     async def conversations_unstar(
         self,
         conversation_id: int,
-    ) -> dict[str, Any]:
+    ) -> Conversations_UnstarResponse:
         path = "/conversations/{conversation_id}/star"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return Conversations_UnstarResponse.model_validate(raw)
 
     async def conversations_alerts_enable(
         self,
         conversation_id: int,
-    ) -> dict[str, Any]:
+    ) -> Conversations_Alerts_EnableResponse:
         path = "/conversations/{conversation_id}/alerts"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return Conversations_Alerts_EnableResponse.model_validate(raw)
 
     async def conversations_alerts_disable(
         self,
         conversation_id: int,
-    ) -> dict[str, Any]:
+    ) -> Conversations_Alerts_DisableResponse:
         path = "/conversations/{conversation_id}/alerts"
         path = path.replace("{conversation_id}", str(conversation_id))
-        return await self._request("DELETE", path)
+        raw = await self._request("DELETE", path)
+        return Conversations_Alerts_DisableResponse.model_validate(raw)
 
     async def notifications_list(
         self,
@@ -4089,7 +4363,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def notifications_get(
         self,
@@ -4097,7 +4372,8 @@ class AsyncForumClient(AsyncBaseClient):
     ) -> dict[str, Any]:
         path = "/notifications/{notification_id}/content"
         path = path.replace("{notification_id}", str(notification_id))
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def notifications_read(
         self,
@@ -4108,13 +4384,15 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if notification_id is not None:
             data["notification_id"] = notification_id
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def tags_popular(
         self,
     ) -> dict[str, Any]:
         path = "/tags"
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return raw
 
     async def tags_list(
         self,
@@ -4127,7 +4405,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def tags_get(
         self,
@@ -4142,7 +4421,8 @@ class AsyncForumClient(AsyncBaseClient):
             params["page"] = page
         if limit is not None:
             params["limit"] = limit
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def tags_find(
         self,
@@ -4152,7 +4432,8 @@ class AsyncForumClient(AsyncBaseClient):
         params: dict[str, Any] = {}
         if tag is not None:
             params["tag"] = tag
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return raw
 
     async def search_all(
         self,
@@ -4162,7 +4443,7 @@ class AsyncForumClient(AsyncBaseClient):
         user_id: UserIDModel | None = None,
         page: int | None = None,
         limit: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Search_AllResponse:
         path = "/search"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -4178,7 +4459,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["page"] = page
         if limit is not None:
             data["limit"] = limit
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Search_AllResponse.model_validate(raw)
 
     async def search_threads(
         self,
@@ -4207,7 +4489,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["limit"] = limit
         if data_limit is not None:
             data["data_limit"] = data_limit
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def search_posts(
         self,
@@ -4236,18 +4519,20 @@ class AsyncForumClient(AsyncBaseClient):
             data["limit"] = limit
         if data_limit is not None:
             data["data_limit"] = data_limit
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def search_users(
         self,
         q: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Search_UsersResponse:
         path = "/search/users"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if q is not None:
             data["q"] = q
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Search_UsersResponse.model_validate(raw)
 
     async def search_profile_posts(
         self,
@@ -4267,7 +4552,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["page"] = page
         if limit is not None:
             data["limit"] = limit
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def search_tagged(
         self,
@@ -4287,7 +4573,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["page"] = page
         if limit is not None:
             data["limit"] = limit
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def search_results(
         self,
@@ -4303,43 +4590,47 @@ class AsyncForumClient(AsyncBaseClient):
             data["page"] = page
         if limit is not None:
             data["limit"] = limit
-        return await self._request("GET", path, json=data)
+        raw = await self._request("GET", path, json=data)
+        return raw
 
     async def batch_execute(
         self,
-    ) -> dict[str, Any]:
+    ) -> Batch_ExecuteResponse:
         path = "/batch"
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return Batch_ExecuteResponse.model_validate(raw)
 
     async def chatbox_index(
         self,
         room_id: RoomIDModel | None = None,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_IndexResponse:
         path = "/chatbox"
         params: dict[str, Any] = {}
         if room_id is not None:
             params["room_id"] = room_id
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Chatbox_IndexResponse.model_validate(raw)
 
     async def chatbox_get_messages(
         self,
         room_id: RoomIDModel,
         before_message_id: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_GetMessagesResponse:
         path = "/chatbox/messages"
         params: dict[str, Any] = {}
         if room_id is not None:
             params["room_id"] = room_id
         if before_message_id is not None:
             params["before_message_id"] = before_message_id
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Chatbox_GetMessagesResponse.model_validate(raw)
 
     async def chatbox_post_message(
         self,
         room_id: RoomIDModel,
         message: str,
         reply_message_id: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_PostMessageResponse:
         path = "/chatbox/messages"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -4349,13 +4640,14 @@ class AsyncForumClient(AsyncBaseClient):
             data["reply_message_id"] = reply_message_id
         if message is not None:
             data["message"] = message
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return Chatbox_PostMessageResponse.model_validate(raw)
 
     async def chatbox_edit_message(
         self,
         message_id: int,
         message: str,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_EditMessageResponse:
         path = "/chatbox/messages"
         params: dict[str, Any] = {}
         data: dict[str, Any] = {}
@@ -4363,7 +4655,8 @@ class AsyncForumClient(AsyncBaseClient):
             data["message_id"] = message_id
         if message is not None:
             data["message"] = message
-        return await self._request("PUT", path, json=data)
+        raw = await self._request("PUT", path, json=data)
+        return Chatbox_EditMessageResponse.model_validate(raw)
 
     async def chatbox_delete_message(
         self,
@@ -4374,27 +4667,30 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if message_id is not None:
             data["message_id"] = message_id
-        return await self._request("DELETE", path, json=data)
+        raw = await self._request("DELETE", path, json=data)
+        return raw
 
     async def chatbox_online(
         self,
         room_id: RoomIDModel,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_OnlineResponse:
         path = "/chatbox/messages/online"
         params: dict[str, Any] = {}
         if room_id is not None:
             params["room_id"] = room_id
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Chatbox_OnlineResponse.model_validate(raw)
 
     async def chatbox_report_reasons(
         self,
         message_id: int,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_ReportReasonsResponse:
         path = "/chatbox/messages/report"
         params: dict[str, Any] = {}
         if message_id is not None:
             params["message_id"] = message_id
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Chatbox_ReportReasonsResponse.model_validate(raw)
 
     async def chatbox_report(
         self,
@@ -4408,23 +4704,26 @@ class AsyncForumClient(AsyncBaseClient):
             data["message_id"] = message_id
         if reason is not None:
             data["reason"] = reason
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def chatbox_get_leaderboard(
         self,
         duration: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_GetLeaderboardResponse:
         path = "/chatbox/messages/leaderboard"
         params: dict[str, Any] = {}
         if duration is not None:
             params["duration"] = duration
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Chatbox_GetLeaderboardResponse.model_validate(raw)
 
     async def chatbox_get_ignore(
         self,
-    ) -> dict[str, Any]:
+    ) -> Chatbox_GetIgnoreResponse:
         path = "/chatbox/ignore"
-        return await self._request("GET", path)
+        raw = await self._request("GET", path)
+        return Chatbox_GetIgnoreResponse.model_validate(raw)
 
     async def chatbox_post_ignore(
         self,
@@ -4435,7 +4734,8 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
-        return await self._request("POST", path, json=data)
+        raw = await self._request("POST", path, json=data)
+        return raw
 
     async def chatbox_delete_ignore(
         self,
@@ -4446,21 +4746,24 @@ class AsyncForumClient(AsyncBaseClient):
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
-        return await self._request("DELETE", path, json=data)
+        raw = await self._request("DELETE", path, json=data)
+        return raw
 
     async def forms_list(
         self,
         page: int | None = None,
-    ) -> dict[str, Any]:
+    ) -> Forms_ListResponse:
         path = "/forms"
         params: dict[str, Any] = {}
         if page is not None:
             params["page"] = page
-        return await self._request("GET", path, params=params)
+        raw = await self._request("GET", path, params=params)
+        return Forms_ListResponse.model_validate(raw)
 
     async def forms_create(
         self,
-    ) -> dict[str, Any]:
+    ) -> Forms_CreateResponse:
         path = "/forms/save"
-        return await self._request("POST", path)
+        raw = await self._request("POST", path)
+        return Forms_CreateResponse.model_validate(raw)
 

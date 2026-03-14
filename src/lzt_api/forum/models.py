@@ -273,3 +273,407 @@ class Resp_SystemInfo(BaseModel):
 
     model_config = {"populate_by_name": True}
 
+
+class OAuth_TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
+    expires_in: int
+    refresh_token: str | None = None
+    scope: str | None = None
+
+    model_config = {"populate_by_name": True}
+
+
+class Assets_CssResponse(BaseModel):
+    contents: str
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Forums_ListResponse(BaseModel):
+    forums: list[dict[str, Any]]
+    forums_total: int
+    tabs: list[dict[str, Any]]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Forums_GroupedResponse(BaseModel):
+    data: dict[str, Any]
+    tabs: list[dict[str, Any]]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Forums_GetFeedOptionsResponse(BaseModel):
+    forums: list[dict[str, Any]]
+    excluded_forums_ids: list[int]
+    default_excluded_forums_ids: list[int]
+    keywords: str
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Links_ListResponse(BaseModel):
+    link_forums: list[Resp_LinkModel] = Field(alias="link-forums")
+    link_forums_total: int = Field(alias="link-forums_total")
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Links_GetResponse(BaseModel):
+    link_forum: Resp_LinkModel = Field(alias="link-forum")
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Threads_CreateResponse(BaseModel):
+    thread: Resp_ThreadModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Threads_CreateContestResponse(BaseModel):
+    thread: Resp_ThreadModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Threads_ClaimResponse(BaseModel):
+    thread: Resp_ThreadModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Threads_GetResponse(BaseModel):
+    thread: Resp_ThreadModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Threads_EditResponse(BaseModel):
+    thread: Resp_ThreadModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Posts_CreateResponse(BaseModel):
+    post: Resp_PostModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Posts_GetResponse(BaseModel):
+    post: Resp_PostModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Posts_EditResponse(BaseModel):
+    post: Resp_PostModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Posts_ReportReasonsResponse(BaseModel):
+    reasons: list[str]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Posts_Comments_EditResponse(BaseModel):
+    comment: dict[str, Any]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Users_ListResponse(BaseModel):
+    users: list[Resp_UserModel]
+    users_total: int
+    links: dict[str, Any]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Users_GetResponse(BaseModel):
+    user: Resp_UserModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Users_ClaimsResponse(BaseModel):
+    claims: list[dict[str, Any]]
+    stats: dict[str, Any]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Users_LikesResponse(BaseModel):
+    page: int
+    perPage: int
+    contentType: str
+    totalLikes: int
+    likes: dict[str, Any]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Users_IgnoredResponse(BaseModel):
+    users: list[dict[str, Any]]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Users_TrophiesResponse(BaseModel):
+    trophies: list[dict[str, Any]]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Users_SecretAnswerTypesResponse(BaseModel):
+    data: list[dict[str, Any]]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Users_SA_ResetResponse(BaseModel):
+    success: bool
+    waiting_time: str
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class ProfilePosts_ReportReasonsResponse(BaseModel):
+    reasons: list[str]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class ProfilePosts_Comments_EditResponse(BaseModel):
+    comment: dict[str, Any]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_ListResponse(BaseModel):
+    conversations: list[Resp_ConversationModel]
+    can_start: bool
+    folders: list[dict[str, Any]]
+    links: dict[str, Any]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_CreateResponse(BaseModel):
+    conversation: Resp_ConversationModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_StartResponse(BaseModel):
+    conversation: Resp_ConversationModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_Messages_ListResponse(BaseModel):
+    messages: list[Resp_ConversationMessageModel]
+    messages_total: int
+    links: dict[str, Any]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_Messages_CreateResponse(BaseModel):
+    message: Resp_ConversationMessageModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_SearchResponse(BaseModel):
+    conversations: list[Resp_ConversationModel]
+    recipients: bool
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_Messages_EditResponse(BaseModel):
+    message: Resp_ConversationModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_ReadAllResponse(BaseModel):
+    status: str
+    message: str
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_StarResponse(BaseModel):
+    status: str
+    message: str
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_UnstarResponse(BaseModel):
+    status: str
+    message: str
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_Alerts_EnableResponse(BaseModel):
+    status: str
+    message: str
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Conversations_Alerts_DisableResponse(BaseModel):
+    status: str
+    message: str
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Search_AllResponse(BaseModel):
+    data: list[dict[str, Any]]
+    data_total: int
+    users: list[Resp_UserModel]
+    links: dict[str, Any]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Search_UsersResponse(BaseModel):
+    users: list[Resp_UserModel]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Batch_ExecuteResponse(BaseModel):
+    jobs: dict[str, Any]
+
+    model_config = {"populate_by_name": True}
+
+
+class Chatbox_IndexResponse(BaseModel):
+    rooms: list[dict[str, Any]]
+    ban: Any
+    ignore: list[dict[str, Any]]
+    permissions: dict[str, Any]
+    commands: list[str]
+    roomsOnline: dict[str, Any]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Chatbox_GetMessagesResponse(BaseModel):
+    messages: list[Resp_ChatboxMessageModel]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Chatbox_PostMessageResponse(BaseModel):
+    message: Resp_ChatboxMessageModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Chatbox_EditMessageResponse(BaseModel):
+    message: Resp_ChatboxMessageModel
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Chatbox_OnlineResponse(BaseModel):
+    users: list[dict[str, Any]]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Chatbox_ReportReasonsResponse(BaseModel):
+    reasons: list[str]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Chatbox_GetLeaderboardResponse(BaseModel):
+    leaderboard: list[dict[str, Any]]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Chatbox_GetIgnoreResponse(BaseModel):
+    ignored: list[dict[str, Any]]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Forms_ListResponse(BaseModel):
+    forms: list[dict[str, Any]]
+    formsPerPage: int
+    page: int
+    totalForms: int
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
+
+class Forms_CreateResponse(BaseModel):
+    message: str
+    content: dict[str, Any]
+    system_info: Resp_SystemInfo
+
+    model_config = {"populate_by_name": True}
+
