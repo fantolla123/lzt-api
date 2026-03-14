@@ -14,7 +14,7 @@ class DiscountModel(BaseModel):
     min_price: int
     user_id: int
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class UserModel(BaseModel):
@@ -81,7 +81,7 @@ class UserModel(BaseModel):
     visible: bool
     warning_points: int
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class BalanceModel(BaseModel):
@@ -94,7 +94,7 @@ class BalanceModel(BaseModel):
     type_: str = Field(alias="type")
     user_id: int
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class ExtraModel(BaseModel):
@@ -125,14 +125,14 @@ class ExtraModel(BaseModel):
     checkSpam: bool | None = None
     checkHypixelBan: bool | None = None
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class ConfirmationCodeModel(BaseModel):
     item: ItemModel
     codeData: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class ItemListModel(BaseModel):
@@ -146,57 +146,57 @@ class ItemListModel(BaseModel):
     stickyItems: list[ItemFromListModel]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class ItemFromListModel(BaseModel):
-    item_id: int | None = 0
-    item_state: str | None = "active"
-    category_id: int | None = 0
-    published_date: int | None = 0
-    title: str | None = "Title"
-    description: str | None = "Description"
-    price: int | None = 0
-    update_stat_date: int | None = 0
-    refreshed_date: int | None = 0
-    view_count: int | None = 0
-    is_sticky: int | None = 0
-    item_origin: str | None = "string"
-    extended_guarantee: int | None = 0
-    nsb: int | None = 0
-    allow_ask_discount: int | None = 0
-    title_en: str | None = "Title EN"
-    description_en: str | None = "Description EN"
-    item_domain: str | None = "string"
-    resale_item_origin: str | None = "string"
-    isIgnored: int | None = 0
+    item_id: int | None = None
+    item_state: str | None = None
+    category_id: int | None = None
+    published_date: int | None = None
+    title: str | None = None
+    description: str | None = None
+    price: int | None = None
+    update_stat_date: int | None = None
+    refreshed_date: int | None = None
+    view_count: int | None = None
+    is_sticky: int | None = None
+    item_origin: str | None = None
+    extended_guarantee: int | None = None
+    nsb: int | None = None
+    allow_ask_discount: int | None = None
+    title_en: str | None = None
+    description_en: str | None = None
+    item_domain: str | None = None
+    resale_item_origin: str | None = None
+    isIgnored: int | None = None
     guarantee: bool | None = None
-    canViewLoginData: bool | None = False
-    canUpdateItemStats: bool | None = False
-    canViewEmailLoginData: bool | None = False
-    showGetEmailCodeButton: bool | None = False
-    canOpenItem: bool | None = False
-    canCloseItem: bool | None = False
-    canEditItem: bool | None = False
-    canDeleteItem: bool | None = False
-    canStickItem: bool | None = False
-    canUnstickItem: bool | None = False
+    canViewLoginData: bool | None = None
+    canUpdateItemStats: bool | None = None
+    canViewEmailLoginData: bool | None = None
+    showGetEmailCodeButton: bool | None = None
+    canOpenItem: bool | None = None
+    canCloseItem: bool | None = None
+    canEditItem: bool | None = None
+    canDeleteItem: bool | None = None
+    canStickItem: bool | None = None
+    canUnstickItem: bool | None = None
     bumpSettings: dict[str, Any] | None = None
-    canBumpItem: bool | None = False
-    canBuyItem: bool | None = False
-    rub_price: int | None = 0
-    price_currency: str | None = "rub"
-    canValidateAccount: bool | None = False
-    canResellItemAfterPurchase: bool | None = False
-    canViewAccountLink: bool | None = False
-    itemOriginPhrase: str | None = "string"
+    canBumpItem: bool | None = None
+    canBuyItem: bool | None = None
+    rub_price: int | None = None
+    price_currency: str | None = None
+    canValidateAccount: bool | None = None
+    canResellItemAfterPurchase: bool | None = None
+    canViewAccountLink: bool | None = None
+    itemOriginPhrase: str | None = None
     tags: list[str] | None = None
     note_text: str | None = None
-    description_html: str | None = "Description HTML"
-    description_html_en: str | None = "Description HTML EN"
+    description_html: str | None = None
+    description_html_en: str | None = None
     seller: dict[str, Any] | None = None
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class ItemModel(BaseModel):
@@ -301,7 +301,7 @@ class ItemModel(BaseModel):
     descriptionEnPlain: str
     seller: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class InvoiceModel(BaseModel):
@@ -323,7 +323,7 @@ class InvoiceModel(BaseModel):
     url_success: str
     user_id: int
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_SystemInfo(BaseModel):
@@ -331,7 +331,7 @@ class Resp_SystemInfo(BaseModel):
     time: int
     log_id: int
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_SteamResponse(BaseModel):
@@ -349,7 +349,7 @@ class Category_SteamResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_FortniteResponse(BaseModel):
@@ -367,7 +367,7 @@ class Category_FortniteResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_MihoyoResponse(BaseModel):
@@ -385,7 +385,7 @@ class Category_MihoyoResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_RiotResponse(BaseModel):
@@ -403,7 +403,7 @@ class Category_RiotResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_TelegramResponse(BaseModel):
@@ -421,7 +421,7 @@ class Category_TelegramResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_SupercellResponse(BaseModel):
@@ -439,7 +439,7 @@ class Category_SupercellResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_EAResponse(BaseModel):
@@ -457,7 +457,7 @@ class Category_EAResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_WotResponse(BaseModel):
@@ -475,7 +475,7 @@ class Category_WotResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_WotBlitzResponse(BaseModel):
@@ -493,7 +493,7 @@ class Category_WotBlitzResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_GiftsResponse(BaseModel):
@@ -511,7 +511,7 @@ class Category_GiftsResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_EpicGamesResponse(BaseModel):
@@ -529,7 +529,7 @@ class Category_EpicGamesResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_EscapeFromTarkovResponse(BaseModel):
@@ -547,7 +547,7 @@ class Category_EscapeFromTarkovResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_SocialClubResponse(BaseModel):
@@ -565,7 +565,7 @@ class Category_SocialClubResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_UplayResponse(BaseModel):
@@ -583,7 +583,7 @@ class Category_UplayResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_DiscordResponse(BaseModel):
@@ -601,7 +601,7 @@ class Category_DiscordResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_TikTokResponse(BaseModel):
@@ -619,7 +619,7 @@ class Category_TikTokResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_InstagramResponse(BaseModel):
@@ -637,7 +637,7 @@ class Category_InstagramResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_BattleNetResponse(BaseModel):
@@ -655,7 +655,7 @@ class Category_BattleNetResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_ChatGPTResponse(BaseModel):
@@ -673,7 +673,7 @@ class Category_ChatGPTResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_VpnResponse(BaseModel):
@@ -691,7 +691,7 @@ class Category_VpnResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_RobloxResponse(BaseModel):
@@ -709,7 +709,7 @@ class Category_RobloxResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_WarfaceResponse(BaseModel):
@@ -727,7 +727,7 @@ class Category_WarfaceResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_MinecraftResponse(BaseModel):
@@ -745,7 +745,7 @@ class Category_MinecraftResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_HytaleResponse(BaseModel):
@@ -763,14 +763,14 @@ class Category_HytaleResponse(BaseModel):
     stickyItems: list[Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_ListResponse(BaseModel):
     category: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_ParamsResponse(BaseModel):
@@ -779,21 +779,21 @@ class Category_ParamsResponse(BaseModel):
     base_params: dict[str, Any] | None = None
     system_info: Resp_SystemInfo | None = None
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Category_GamesResponse(BaseModel):
     games: list[dict[str, Any]] | None = None
     system_info: Resp_SystemInfo | None = None
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class List_StatesResponse(BaseModel):
     userItemStates: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_GetResponse(BaseModel):
@@ -819,7 +819,7 @@ class Managing_GetResponse(BaseModel):
     sameItemsCount: int
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Profile_ClaimsResponse(BaseModel):
@@ -827,14 +827,14 @@ class Profile_ClaimsResponse(BaseModel):
     stats: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_CreateClaimResponse(BaseModel):
     thread: dict[str, Any]
     system_info: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_BulkGetResponse(BaseModel):
@@ -842,7 +842,7 @@ class Managing_BulkGetResponse(BaseModel):
     left_item_id: list[int]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_SteamInventoryValueResponse(BaseModel):
@@ -851,7 +851,7 @@ class Managing_SteamInventoryValueResponse(BaseModel):
     appId: int | None = None
     system_info: Resp_SystemInfo | None = None
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_SteamValueResponse(BaseModel):
@@ -860,21 +860,21 @@ class Managing_SteamValueResponse(BaseModel):
     appId: int | None = None
     system_info: Resp_SystemInfo | None = None
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_AIPriceResponse(BaseModel):
     price: int
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_AutoBuyPriceResponse(BaseModel):
     price: int
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_SteamUpdateValueResponse(BaseModel):
@@ -882,36 +882,36 @@ class Managing_SteamUpdateValueResponse(BaseModel):
     item: ItemModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_ImageResponse(BaseModel):
     base64: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Cart_AddResponse(BaseModel):
     success: bool
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Cart_DeleteResponse(BaseModel):
     success: bool
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Purchasing_ConfirmResponse(BaseModel):
-    status: str | None = "ok"
+    status: str | None = None
     item: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class CustomDiscounts_GetResponse(BaseModel):
@@ -919,7 +919,7 @@ class CustomDiscounts_GetResponse(BaseModel):
     total: int
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class CustomDiscounts_CreateResponse(BaseModel):
@@ -927,7 +927,7 @@ class CustomDiscounts_CreateResponse(BaseModel):
     total: int
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class CustomDiscounts_EditResponse(BaseModel):
@@ -935,7 +935,7 @@ class CustomDiscounts_EditResponse(BaseModel):
     total: int
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Publishing_FastSellResponse(BaseModel):
@@ -943,7 +943,7 @@ class Publishing_FastSellResponse(BaseModel):
     itemLink: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Publishing_AddResponse(BaseModel):
@@ -951,7 +951,7 @@ class Publishing_AddResponse(BaseModel):
     item: ItemModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_GetLetters2Response(BaseModel):
@@ -959,63 +959,63 @@ class Managing_GetLetters2Response(BaseModel):
     letters: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_Steam_GetMafileResponse(BaseModel):
     maFile: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_TelegramCodeResponse(BaseModel):
     item: ItemModel
     codes: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_CheckGuaranteeResponse(BaseModel):
     message: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_ChangePasswordResponse(BaseModel):
-    status: str | None = "ok"
-    message: str | None = "Changes Saved"
+    status: str | None = None
+    message: str | None = None
     new_password: str
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Managing_TempEmailPasswordResponse(BaseModel):
     item: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Profile_GetResponse(BaseModel):
     user: UserModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Payments_Invoice_GetResponse(BaseModel):
     invoice: InvoiceModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Payments_Invoice_CreateResponse(BaseModel):
     invoice: InvoiceModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Payments_Invoice_ListResponse(BaseModel):
@@ -1025,7 +1025,7 @@ class Payments_Invoice_ListResponse(BaseModel):
     perPage: int
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Payments_CurrencyResponse(BaseModel):
@@ -1034,7 +1034,7 @@ class Payments_CurrencyResponse(BaseModel):
     visitorCurrency: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Payments_FeeResponse(BaseModel):
@@ -1043,7 +1043,7 @@ class Payments_FeeResponse(BaseModel):
     calculator: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Payments_HistoryResponse(BaseModel):
@@ -1062,14 +1062,14 @@ class Payments_HistoryResponse(BaseModel):
     nextPageHref: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class AutoPayments_ListResponse(BaseModel):
     payments: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class AutoPayments_CreateResponse(BaseModel):
@@ -1078,26 +1078,26 @@ class AutoPayments_CreateResponse(BaseModel):
     auto_payment_id: int
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Payments_PayoutServicesResponse(BaseModel):
     systems: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Proxy_GetResponse(BaseModel):
     proxies: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class BatchResponse(BaseModel):
     jobs: dict[str, Any]
     system_info: Resp_SystemInfo | None = None
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 

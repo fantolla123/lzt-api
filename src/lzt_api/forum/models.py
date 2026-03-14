@@ -19,7 +19,7 @@ class Resp_NotificationModel(BaseModel):
     links: dict[str, Any]
     notification_html: str
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_LinkModel(BaseModel):
@@ -29,7 +29,7 @@ class Resp_LinkModel(BaseModel):
     links: dict[str, Any]
     permissions: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_ChatboxMessageModel(BaseModel):
@@ -43,7 +43,7 @@ class Resp_ChatboxMessageModel(BaseModel):
     room: dict[str, Any]
     user: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_UserModel(BaseModel):
@@ -93,7 +93,7 @@ class Resp_UserModel(BaseModel):
     user_followers: dict[str, Any]
     banner: str
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_ThreadModel(BaseModel):
@@ -124,7 +124,7 @@ class Resp_ThreadModel(BaseModel):
     last_post: dict[str, Any]
     contest: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_PostModel(BaseModel):
@@ -150,7 +150,7 @@ class Resp_PostModel(BaseModel):
     permissions: dict[str, Any]
     thread_is_deleted: bool
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_PostCommentModel(BaseModel):
@@ -172,7 +172,7 @@ class Resp_PostCommentModel(BaseModel):
     links: dict[str, Any]
     permissions: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_ProfilePostModel(BaseModel):
@@ -198,7 +198,7 @@ class Resp_ProfilePostModel(BaseModel):
     permissions: dict[str, Any]
     timeline_user: Resp_UserModel
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_ProfilePostCommentModel(BaseModel):
@@ -216,7 +216,7 @@ class Resp_ProfilePostCommentModel(BaseModel):
     links: dict[str, Any]
     permissions: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_ConversationModel(BaseModel):
@@ -243,7 +243,7 @@ class Resp_ConversationModel(BaseModel):
     recipients: list[dict[str, Any]]
     links: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_ConversationMessageModel(BaseModel):
@@ -264,14 +264,14 @@ class Resp_ConversationMessageModel(BaseModel):
     links: dict[str, Any]
     permissions: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Resp_SystemInfo(BaseModel):
     visitor_id: int
     time: int
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class OAuth_TokenResponse(BaseModel):
@@ -281,14 +281,14 @@ class OAuth_TokenResponse(BaseModel):
     refresh_token: str | None = None
     scope: str | None = None
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Assets_CssResponse(BaseModel):
     contents: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Forums_ListResponse(BaseModel):
@@ -297,7 +297,7 @@ class Forums_ListResponse(BaseModel):
     tabs: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Forums_GroupedResponse(BaseModel):
@@ -305,7 +305,7 @@ class Forums_GroupedResponse(BaseModel):
     tabs: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Forums_GetFeedOptionsResponse(BaseModel):
@@ -315,7 +315,7 @@ class Forums_GetFeedOptionsResponse(BaseModel):
     keywords: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Links_ListResponse(BaseModel):
@@ -323,84 +323,84 @@ class Links_ListResponse(BaseModel):
     link_forums_total: int = Field(alias="link-forums_total")
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Links_GetResponse(BaseModel):
     link_forum: Resp_LinkModel = Field(alias="link-forum")
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Threads_CreateResponse(BaseModel):
     thread: Resp_ThreadModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Threads_CreateContestResponse(BaseModel):
     thread: Resp_ThreadModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Threads_ClaimResponse(BaseModel):
     thread: Resp_ThreadModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Threads_GetResponse(BaseModel):
     thread: Resp_ThreadModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Threads_EditResponse(BaseModel):
     thread: Resp_ThreadModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Posts_CreateResponse(BaseModel):
     post: Resp_PostModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Posts_GetResponse(BaseModel):
     post: Resp_PostModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Posts_EditResponse(BaseModel):
     post: Resp_PostModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Posts_ReportReasonsResponse(BaseModel):
     reasons: list[str]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Posts_Comments_EditResponse(BaseModel):
     comment: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Users_ListResponse(BaseModel):
@@ -409,14 +409,14 @@ class Users_ListResponse(BaseModel):
     links: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Users_GetResponse(BaseModel):
     user: Resp_UserModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Users_ClaimsResponse(BaseModel):
@@ -424,7 +424,7 @@ class Users_ClaimsResponse(BaseModel):
     stats: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Users_LikesResponse(BaseModel):
@@ -435,28 +435,28 @@ class Users_LikesResponse(BaseModel):
     likes: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Users_IgnoredResponse(BaseModel):
     users: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Users_TrophiesResponse(BaseModel):
     trophies: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Users_SecretAnswerTypesResponse(BaseModel):
     data: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Users_SA_ResetResponse(BaseModel):
@@ -464,21 +464,21 @@ class Users_SA_ResetResponse(BaseModel):
     waiting_time: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class ProfilePosts_ReportReasonsResponse(BaseModel):
     reasons: list[str]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class ProfilePosts_Comments_EditResponse(BaseModel):
     comment: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_ListResponse(BaseModel):
@@ -488,21 +488,21 @@ class Conversations_ListResponse(BaseModel):
     links: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_CreateResponse(BaseModel):
     conversation: Resp_ConversationModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_StartResponse(BaseModel):
     conversation: Resp_ConversationModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_Messages_ListResponse(BaseModel):
@@ -511,14 +511,14 @@ class Conversations_Messages_ListResponse(BaseModel):
     links: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_Messages_CreateResponse(BaseModel):
     message: Resp_ConversationMessageModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_SearchResponse(BaseModel):
@@ -526,14 +526,14 @@ class Conversations_SearchResponse(BaseModel):
     recipients: bool
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_Messages_EditResponse(BaseModel):
     message: Resp_ConversationModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_ReadAllResponse(BaseModel):
@@ -541,7 +541,7 @@ class Conversations_ReadAllResponse(BaseModel):
     message: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_StarResponse(BaseModel):
@@ -549,7 +549,7 @@ class Conversations_StarResponse(BaseModel):
     message: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_UnstarResponse(BaseModel):
@@ -557,7 +557,7 @@ class Conversations_UnstarResponse(BaseModel):
     message: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_Alerts_EnableResponse(BaseModel):
@@ -565,7 +565,7 @@ class Conversations_Alerts_EnableResponse(BaseModel):
     message: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Conversations_Alerts_DisableResponse(BaseModel):
@@ -573,7 +573,7 @@ class Conversations_Alerts_DisableResponse(BaseModel):
     message: str
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Search_AllResponse(BaseModel):
@@ -583,20 +583,20 @@ class Search_AllResponse(BaseModel):
     links: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Search_UsersResponse(BaseModel):
     users: list[Resp_UserModel]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Batch_ExecuteResponse(BaseModel):
     jobs: dict[str, Any]
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Chatbox_IndexResponse(BaseModel):
@@ -608,56 +608,56 @@ class Chatbox_IndexResponse(BaseModel):
     roomsOnline: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Chatbox_GetMessagesResponse(BaseModel):
     messages: list[Resp_ChatboxMessageModel]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Chatbox_PostMessageResponse(BaseModel):
     message: Resp_ChatboxMessageModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Chatbox_EditMessageResponse(BaseModel):
     message: Resp_ChatboxMessageModel
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Chatbox_OnlineResponse(BaseModel):
     users: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Chatbox_ReportReasonsResponse(BaseModel):
     reasons: list[str]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Chatbox_GetLeaderboardResponse(BaseModel):
     leaderboard: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Chatbox_GetIgnoreResponse(BaseModel):
     ignored: list[dict[str, Any]]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Forms_ListResponse(BaseModel):
@@ -667,7 +667,7 @@ class Forms_ListResponse(BaseModel):
     totalForms: int
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
 
 class Forms_CreateResponse(BaseModel):
@@ -675,5 +675,5 @@ class Forms_CreateResponse(BaseModel):
     content: dict[str, Any]
     system_info: Resp_SystemInfo
 
-    model_config = {"populate_by_name": True}
+    model_config = {"populate_by_name": True, "extra": "allow"}
 
