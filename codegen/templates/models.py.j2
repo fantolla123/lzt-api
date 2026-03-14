@@ -1,0 +1,31 @@
+from __future__ import annotations
+
+from typing import Any
+
+from pydantic import BaseModel, Field
+
+{% for model in models %}
+
+class {{ model.class_name }}(BaseModel):
+{% for field in model.fields %}
+{% if field.name != field.python_name %}
+{% if not field.required %}
+    {{ field.python_name }}: {{ field.type_hint }} | None = Field({{ field.default|repr_value }}, alias="{{ field.name }}")
+{% else %}
+    {{ field.python_name }}: {{ field.type_hint }} = Field(alias="{{ field.name }}")
+{% endif %}
+{% else %}
+{% if not field.required %}
+    {{ field.python_name }}: {{ field.type_hint }} | None = {{ field.default|repr_value }}
+{% else %}
+    {{ field.python_name }}: {{ field.type_hint }}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% if not model.fields %}
+    pass
+{% endif %}
+
+    model_config = {"populate_by_name": True}
+
+{% endfor %}
