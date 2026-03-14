@@ -125,10 +125,16 @@ def generate(schema_path: str, output_dir: str, class_name: str) -> None:
 
     template_endpoints = prepare_endpoints(parser)
 
-    # Collect used response models for import
-    response_models = sorted({
-        ep.response_model for ep in template_endpoints if ep.response_model
-    })
+    model_names = {m.class_name for m in parser.models}
+
+    response_models = set()
+    for ep in template_endpoints:
+        if ep.response_model:
+            response_models.add(ep.response_model)
+        for p in ep.path_params + ep.required_params + ep.optional_params:
+            if p.type_hint in model_names:
+                response_models.add(p.type_hint)
+    response_models = sorted(response_models)
 
     client_template = env.get_template("client.py.j2")
     # Derive module prefix from output dir (e.g. src/lzt_api/forum/ -> lzt_api.forum)

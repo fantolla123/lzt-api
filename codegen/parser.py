@@ -68,12 +68,21 @@ def _sanitize_python_name(name: str) -> str:
     return result
 
 
+_global_spec: dict[str, Any] = {}
+
+
 def _openapi_type_to_python(schema: dict[str, Any]) -> str:
     if not schema:
         return "Any"
 
     if "$ref" in schema:
         ref_name = schema["$ref"].split("/")[-1]
+        if _global_spec:
+            resolved = _global_spec.get("components", {}).get("schemas", {}).get(ref_name, {})
+            schema_type = resolved.get("type")
+            has_props = "properties" in resolved
+            if schema_type not in ("object", None) and not has_props:
+                return _openapi_type_to_python(resolved)
         return ref_name
 
     schema_type = schema.get("type")
@@ -118,8 +127,10 @@ def _resolve_ref(spec: dict[str, Any], ref: str) -> dict[str, Any]:
 
 class OpenAPIParser:
     def __init__(self, spec_path: str | Path):
+        global _global_spec
         with open(spec_path, encoding="utf-8") as f:
             self.spec = json.load(f)
+        _global_spec = self.spec
         self.endpoints: list[Endpoint] = []
         self.models: list[SchemaModel] = []
 

@@ -1047,7 +1047,7 @@ class ForumClient(BaseClient):
 
     def users_get(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         fields_include: list[str] | None = None,
     ) -> Users_GetResponse:
 
@@ -1061,7 +1061,7 @@ class ForumClient(BaseClient):
 
     def users_edit(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         username: str | None = None,
         user_title: str | None = None,
         display_group_id: int | None = None,
@@ -1153,7 +1153,7 @@ class ForumClient(BaseClient):
 
     def users_claims(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         type_: str | None = None,
         claim_state: str | None = None,
     ) -> Users_ClaimsResponse:
@@ -1170,7 +1170,7 @@ class ForumClient(BaseClient):
 
     def users_avatar_upload(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         avatar: BinaryIO,
         x: int | None = None,
         y: int | None = None,
@@ -1194,7 +1194,7 @@ class ForumClient(BaseClient):
 
     def users_avatar_delete(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/avatar"
@@ -1204,7 +1204,7 @@ class ForumClient(BaseClient):
 
     def users_avatar_crop(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         x: int | None = None,
         y: int | None = None,
         crop: int | None = None,
@@ -1224,7 +1224,7 @@ class ForumClient(BaseClient):
 
     def users_background_upload(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         background: BinaryIO,
         x: int | None = None,
         y: int | None = None,
@@ -1248,7 +1248,7 @@ class ForumClient(BaseClient):
 
     def users_background_delete(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/background"
@@ -1258,7 +1258,7 @@ class ForumClient(BaseClient):
 
     def users_background_crop(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         x: int | None = None,
         y: int | None = None,
         crop: int | None = None,
@@ -1278,7 +1278,7 @@ class ForumClient(BaseClient):
 
     def users_followers(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         order: str | None = None,
         page: int | None = None,
         limit: int | None = None,
@@ -1298,7 +1298,7 @@ class ForumClient(BaseClient):
 
     def users_follow(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/followers"
@@ -1308,7 +1308,7 @@ class ForumClient(BaseClient):
 
     def users_unfollow(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/followers"
@@ -1318,7 +1318,7 @@ class ForumClient(BaseClient):
 
     def users_followings(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         order: str | None = None,
         page: int | None = None,
         limit: int | None = None,
@@ -1338,7 +1338,7 @@ class ForumClient(BaseClient):
 
     def users_likes(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         node_id: int | None = None,
         like_type: str | None = None,
         type_: str | None = "gotten",
@@ -1382,7 +1382,7 @@ class ForumClient(BaseClient):
 
     def users_ignore(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/ignore"
@@ -1392,7 +1392,7 @@ class ForumClient(BaseClient):
 
     def users_ignore_edit(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         ignore_conversations: bool | None = None,
         ignore_content: bool | None = None,
         restrict_view_profile: bool | None = None,
@@ -1412,7 +1412,7 @@ class ForumClient(BaseClient):
 
     def users_unignore(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/ignore"
@@ -1422,7 +1422,7 @@ class ForumClient(BaseClient):
 
     def users_contents(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         page: int | None = None,
         limit: int | None = None,
     ) -> dict[str, Any]:
@@ -1439,7 +1439,7 @@ class ForumClient(BaseClient):
 
     def users_trophies(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> Users_TrophiesResponse:
 
         path = "/users/{user_id}/trophies"
@@ -1473,7 +1473,7 @@ class ForumClient(BaseClient):
 
     def profile_posts_list(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         posts_user_id: int | None = None,
         page: int | None = None,
         limit: int | None = None,
@@ -1561,7 +1561,7 @@ class ForumClient(BaseClient):
 
     def profile_posts_create(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         post_body: str,
     ) -> dict[str, Any]:
 
@@ -1811,7 +1811,7 @@ class ForumClient(BaseClient):
 
     def conversations_start(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> Conversations_StartResponse:
 
         path = "/conversations/start"
@@ -2149,7 +2149,7 @@ class ForumClient(BaseClient):
         q: str | None = None,
         tag: str | None = None,
         forum_id: int | None = None,
-        user_id: UserIDModel | None = None,
+        user_id: str | None = None,
         page: int | None = None,
         limit: int | None = None,
     ) -> Search_AllResponse:
@@ -2176,7 +2176,7 @@ class ForumClient(BaseClient):
         q: str | None = None,
         tag: str | None = None,
         forum_id: int | None = None,
-        user_id: UserIDModel | None = None,
+        user_id: str | None = None,
         page: int | None = None,
         limit: int | None = None,
         data_limit: int | None = None,
@@ -2206,7 +2206,7 @@ class ForumClient(BaseClient):
         q: str | None = None,
         tag: str | None = None,
         forum_id: int | None = None,
-        user_id: UserIDModel | None = None,
+        user_id: str | None = None,
         page: int | None = None,
         limit: int | None = None,
         data_limit: int | None = None,
@@ -2312,7 +2312,7 @@ class ForumClient(BaseClient):
 
     def chatbox_index(
         self,
-        room_id: RoomIDModel | None = None,
+        room_id: int | None = None,
     ) -> Chatbox_IndexResponse:
 
         path = "/chatbox"
@@ -2324,7 +2324,7 @@ class ForumClient(BaseClient):
 
     def chatbox_get_messages(
         self,
-        room_id: RoomIDModel,
+        room_id: int,
         before_message_id: int | None = None,
     ) -> Chatbox_GetMessagesResponse:
 
@@ -2339,7 +2339,7 @@ class ForumClient(BaseClient):
 
     def chatbox_post_message(
         self,
-        room_id: RoomIDModel,
+        room_id: int,
         message: str,
         reply_message_id: int | None = None,
     ) -> Chatbox_PostMessageResponse:
@@ -2384,7 +2384,7 @@ class ForumClient(BaseClient):
 
     def chatbox_online(
         self,
-        room_id: RoomIDModel,
+        room_id: int,
     ) -> Chatbox_OnlineResponse:
 
         path = "/chatbox/messages/online"
@@ -2443,7 +2443,7 @@ class ForumClient(BaseClient):
 
     def chatbox_post_ignore(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/chatbox/ignore"
@@ -2455,7 +2455,7 @@ class ForumClient(BaseClient):
 
     def chatbox_delete_ignore(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/chatbox/ignore"
@@ -3527,7 +3527,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_get(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         fields_include: list[str] | None = None,
     ) -> Users_GetResponse:
 
@@ -3541,7 +3541,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_edit(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         username: str | None = None,
         user_title: str | None = None,
         display_group_id: int | None = None,
@@ -3633,7 +3633,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_claims(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         type_: str | None = None,
         claim_state: str | None = None,
     ) -> Users_ClaimsResponse:
@@ -3650,7 +3650,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_avatar_upload(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         avatar: BinaryIO,
         x: int | None = None,
         y: int | None = None,
@@ -3674,7 +3674,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_avatar_delete(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/avatar"
@@ -3684,7 +3684,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_avatar_crop(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         x: int | None = None,
         y: int | None = None,
         crop: int | None = None,
@@ -3704,7 +3704,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_background_upload(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         background: BinaryIO,
         x: int | None = None,
         y: int | None = None,
@@ -3728,7 +3728,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_background_delete(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/background"
@@ -3738,7 +3738,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_background_crop(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         x: int | None = None,
         y: int | None = None,
         crop: int | None = None,
@@ -3758,7 +3758,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_followers(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         order: str | None = None,
         page: int | None = None,
         limit: int | None = None,
@@ -3778,7 +3778,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_follow(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/followers"
@@ -3788,7 +3788,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_unfollow(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/followers"
@@ -3798,7 +3798,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_followings(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         order: str | None = None,
         page: int | None = None,
         limit: int | None = None,
@@ -3818,7 +3818,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_likes(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         node_id: int | None = None,
         like_type: str | None = None,
         type_: str | None = "gotten",
@@ -3862,7 +3862,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_ignore(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/ignore"
@@ -3872,7 +3872,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_ignore_edit(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         ignore_conversations: bool | None = None,
         ignore_content: bool | None = None,
         restrict_view_profile: bool | None = None,
@@ -3892,7 +3892,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_unignore(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/users/{user_id}/ignore"
@@ -3902,7 +3902,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_contents(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         page: int | None = None,
         limit: int | None = None,
     ) -> dict[str, Any]:
@@ -3919,7 +3919,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def users_trophies(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> Users_TrophiesResponse:
 
         path = "/users/{user_id}/trophies"
@@ -3953,7 +3953,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def profile_posts_list(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         posts_user_id: int | None = None,
         page: int | None = None,
         limit: int | None = None,
@@ -4041,7 +4041,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def profile_posts_create(
         self,
-        user_id: UserIDModel,
+        user_id: str,
         post_body: str,
     ) -> dict[str, Any]:
 
@@ -4291,7 +4291,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def conversations_start(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> Conversations_StartResponse:
 
         path = "/conversations/start"
@@ -4629,7 +4629,7 @@ class AsyncForumClient(AsyncBaseClient):
         q: str | None = None,
         tag: str | None = None,
         forum_id: int | None = None,
-        user_id: UserIDModel | None = None,
+        user_id: str | None = None,
         page: int | None = None,
         limit: int | None = None,
     ) -> Search_AllResponse:
@@ -4656,7 +4656,7 @@ class AsyncForumClient(AsyncBaseClient):
         q: str | None = None,
         tag: str | None = None,
         forum_id: int | None = None,
-        user_id: UserIDModel | None = None,
+        user_id: str | None = None,
         page: int | None = None,
         limit: int | None = None,
         data_limit: int | None = None,
@@ -4686,7 +4686,7 @@ class AsyncForumClient(AsyncBaseClient):
         q: str | None = None,
         tag: str | None = None,
         forum_id: int | None = None,
-        user_id: UserIDModel | None = None,
+        user_id: str | None = None,
         page: int | None = None,
         limit: int | None = None,
         data_limit: int | None = None,
@@ -4792,7 +4792,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def chatbox_index(
         self,
-        room_id: RoomIDModel | None = None,
+        room_id: int | None = None,
     ) -> Chatbox_IndexResponse:
 
         path = "/chatbox"
@@ -4804,7 +4804,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def chatbox_get_messages(
         self,
-        room_id: RoomIDModel,
+        room_id: int,
         before_message_id: int | None = None,
     ) -> Chatbox_GetMessagesResponse:
 
@@ -4819,7 +4819,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def chatbox_post_message(
         self,
-        room_id: RoomIDModel,
+        room_id: int,
         message: str,
         reply_message_id: int | None = None,
     ) -> Chatbox_PostMessageResponse:
@@ -4864,7 +4864,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def chatbox_online(
         self,
-        room_id: RoomIDModel,
+        room_id: int,
     ) -> Chatbox_OnlineResponse:
 
         path = "/chatbox/messages/online"
@@ -4923,7 +4923,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def chatbox_post_ignore(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/chatbox/ignore"
@@ -4935,7 +4935,7 @@ class AsyncForumClient(AsyncBaseClient):
 
     async def chatbox_delete_ignore(
         self,
-        user_id: UserIDModel,
+        user_id: str,
     ) -> dict[str, Any]:
 
         path = "/chatbox/ignore"
