@@ -20,6 +20,8 @@ class TemplateEndpoint:
     optional_params: list[Parameter]
     query_params: list[Parameter]
     body_params: list[Parameter]
+    file_params: list[Parameter]
+    is_multipart: bool = False
     response_model: str | None = None
 
 
@@ -68,9 +70,11 @@ def prepare_endpoints(parser: OpenAPIParser) -> list[TemplateEndpoint]:
         path_params = [p for p in all_params if p.location == "path"]
         query_params = [p for p in all_params if p.location == "query"]
         body_params = [p for p in all_params if p.location == "body"]
+        file_params = [p for p in all_params if p.location == "file"]
 
-        required_non_path = [p for p in query_params + body_params if p.required]
-        optional_non_path = [p for p in query_params + body_params if not p.required]
+        all_non_path = query_params + body_params + file_params
+        required_non_path = [p for p in all_non_path if p.required]
+        optional_non_path = [p for p in all_non_path if not p.required]
 
         template_endpoints.append(TemplateEndpoint(
             path=ep.path,
@@ -81,6 +85,8 @@ def prepare_endpoints(parser: OpenAPIParser) -> list[TemplateEndpoint]:
             optional_params=optional_non_path,
             query_params=query_params,
             body_params=body_params,
+            file_params=file_params,
+            is_multipart=ep.is_multipart,
             response_model=ep.response_model,
         ))
 

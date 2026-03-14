@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, BinaryIO
 
 from lzt_api.client import BaseClient, AsyncBaseClient
 from lzt_api.market.models import AutoPayments_CreateResponse, AutoPayments_ListResponse, BatchResponse, Cart_AddResponse, Cart_DeleteResponse, Category_BattleNetResponse, Category_ChatGPTResponse, Category_DiscordResponse, Category_EAResponse, Category_EpicGamesResponse, Category_EscapeFromTarkovResponse, Category_FortniteResponse, Category_GamesResponse, Category_GiftsResponse, Category_HytaleResponse, Category_InstagramResponse, Category_ListResponse, Category_MihoyoResponse, Category_MinecraftResponse, Category_ParamsResponse, Category_RiotResponse, Category_RobloxResponse, Category_SocialClubResponse, Category_SteamResponse, Category_SupercellResponse, Category_TelegramResponse, Category_TikTokResponse, Category_UplayResponse, Category_VpnResponse, Category_WarfaceResponse, Category_WotBlitzResponse, Category_WotResponse, ConfirmationCodeModel, CustomDiscounts_CreateResponse, CustomDiscounts_EditResponse, CustomDiscounts_GetResponse, ItemListModel, List_StatesResponse, Managing_AIPriceResponse, Managing_AutoBuyPriceResponse, Managing_BulkGetResponse, Managing_ChangePasswordResponse, Managing_CheckGuaranteeResponse, Managing_CreateClaimResponse, Managing_GetLetters2Response, Managing_GetResponse, Managing_ImageResponse, Managing_SteamInventoryValueResponse, Managing_SteamUpdateValueResponse, Managing_SteamValueResponse, Managing_Steam_GetMafileResponse, Managing_TelegramCodeResponse, Managing_TempEmailPasswordResponse, Payments_CurrencyResponse, Payments_FeeResponse, Payments_HistoryResponse, Payments_Invoice_CreateResponse, Payments_Invoice_GetResponse, Payments_Invoice_ListResponse, Payments_PayoutServicesResponse, Profile_ClaimsResponse, Profile_GetResponse, Proxy_GetResponse, Publishing_AddResponse, Publishing_FastSellResponse, Purchasing_ConfirmResponse
@@ -34,6 +34,7 @@ class MarketClient(BaseClient):
         not_email_provider: str | None = None,
         parse_same_item_ids: bool | None = None,
     ) -> dict[str, Any]:
+
         path = "/"
         params: dict[str, Any] = {}
         if page is not None:
@@ -203,6 +204,7 @@ class MarketClient(BaseClient):
         cards_games_max: int | None = None,
         skip_vac_inv: bool | None = None,
     ) -> Category_SteamResponse:
+
         path = "/steam"
         params: dict[str, Any] = {}
         if page is not None:
@@ -524,6 +526,7 @@ class MarketClient(BaseClient):
         country: list[str] | None = None,
         not_country: list[str] | None = None,
     ) -> Category_FortniteResponse:
+
         path = "/fortnite"
         params: dict[str, Any] = {}
         if page is not None:
@@ -764,6 +767,7 @@ class MarketClient(BaseClient):
         zenless_currency_max: int | None = None,
         daybreak: int | None = None,
     ) -> Category_MihoyoResponse:
+
         path = "/mihoyo"
         params: dict[str, Any] = {}
         if page is not None:
@@ -1014,6 +1018,7 @@ class MarketClient(BaseClient):
         fa_max: int | None = None,
         lol_rank: list[str] | None = None,
     ) -> Category_RiotResponse:
+
         path = "/riot"
         params: dict[str, Any] = {}
         if page is not None:
@@ -1245,6 +1250,7 @@ class MarketClient(BaseClient):
         min_bot_active_users: int | None = None,
         max_bot_active_users: int | None = None,
     ) -> Category_TelegramResponse:
+
         path = "/telegram"
         params: dict[str, Any] = {}
         if page is not None:
@@ -1459,6 +1465,7 @@ class MarketClient(BaseClient):
         creation_year_min: int | None = None,
         creation_year_max: int | None = None,
     ) -> Category_SupercellResponse:
+
         path = "/supercell"
         params: dict[str, Any] = {}
         if page is not None:
@@ -1653,6 +1660,7 @@ class MarketClient(BaseClient):
         hours_played_max: dict[str, Any] | None = None,
         transactions: YesNoNoMatterScheme | None = None,
     ) -> Category_EAResponse:
+
         path = "/ea"
         params: dict[str, Any] = {}
         if page is not None:
@@ -1801,6 +1809,7 @@ class MarketClient(BaseClient):
         country: list[str] | None = None,
         not_country: list[str] | None = None,
     ) -> Category_WotResponse:
+
         path = "/world-of-tanks"
         params: dict[str, Any] = {}
         if page is not None:
@@ -1977,6 +1986,7 @@ class MarketClient(BaseClient):
         country: list[str] | None = None,
         not_country: list[str] | None = None,
     ) -> Category_WotBlitzResponse:
+
         path = "/wot-blitz"
         params: dict[str, Any] = {}
         if page is not None:
@@ -2121,6 +2131,7 @@ class MarketClient(BaseClient):
         subscription_length: int | None = None,
         subscription_period: str | None = None,
     ) -> Category_GiftsResponse:
+
         path = "/gifts"
         params: dict[str, Any] = {}
         if page is not None:
@@ -2215,6 +2226,7 @@ class MarketClient(BaseClient):
         hours_played: dict[str, Any] | None = None,
         hours_played_max: dict[str, Any] | None = None,
     ) -> Category_EpicGamesResponse:
+
         path = "/epicgames"
         params: dict[str, Any] = {}
         if page is not None:
@@ -2330,6 +2342,7 @@ class MarketClient(BaseClient):
         pve: YesNoNoMatterScheme | None = None,
         side: str | None = None,
     ) -> Category_EscapeFromTarkovResponse:
+
         path = "/escape-from-tarkov"
         params: dict[str, Any] = {}
         if page is not None:
@@ -2429,6 +2442,7 @@ class MarketClient(BaseClient):
         bank_cash_max: int | None = None,
         game: list[str] | None = None,
     ) -> Category_SocialClubResponse:
+
         path = "/socialclub"
         params: dict[str, Any] = {}
         if page is not None:
@@ -2546,6 +2560,7 @@ class MarketClient(BaseClient):
         reg: int | None = None,
         reg_period: str | None = None,
     ) -> Category_UplayResponse:
+
         path = "/uplay"
         params: dict[str, Any] = {}
         if page is not None:
@@ -2717,6 +2732,7 @@ class MarketClient(BaseClient):
         min_orbs: int | None = None,
         max_orbs: int | None = None,
     ) -> Category_DiscordResponse:
+
         path = "/discord"
         params: dict[str, Any] = {}
         if page is not None:
@@ -2884,6 +2900,7 @@ class MarketClient(BaseClient):
         verified: str | None = None,
         email: str | None = None,
     ) -> Category_TikTokResponse:
+
         path = "/tiktok"
         params: dict[str, Any] = {}
         if page is not None:
@@ -3000,6 +3017,7 @@ class MarketClient(BaseClient):
         reg: int | None = None,
         reg_period: str | None = None,
     ) -> Category_InstagramResponse:
+
         path = "/instagram"
         params: dict[str, Any] = {}
         if page is not None:
@@ -3112,6 +3130,7 @@ class MarketClient(BaseClient):
         balance_min: int | None = None,
         balance_max: int | None = None,
     ) -> Category_BattleNetResponse:
+
         path = "/battlenet"
         params: dict[str, Any] = {}
         if page is not None:
@@ -3226,6 +3245,7 @@ class MarketClient(BaseClient):
         openai_balance_min: int | None = None,
         openai_balance_max: int | None = None,
     ) -> Category_ChatGPTResponse:
+
         path = "/chatgpt"
         params: dict[str, Any] = {}
         if page is not None:
@@ -3327,6 +3347,7 @@ class MarketClient(BaseClient):
         subscription_period: str | None = None,
         autorenewal: str | None = None,
     ) -> Category_VpnResponse:
+
         path = "/vpn"
         params: dict[str, Any] = {}
         if page is not None:
@@ -3443,6 +3464,7 @@ class MarketClient(BaseClient):
         age_group: list[str] | None = None,
         not_age_group: list[str] | None = None,
     ) -> Category_RobloxResponse:
+
         path = "/roblox"
         params: dict[str, Any] = {}
         if page is not None:
@@ -3598,6 +3620,7 @@ class MarketClient(BaseClient):
         total_kredits_min: int | None = None,
         total_kredits_max: int | None = None,
     ) -> Category_WarfaceResponse:
+
         path = "/warface"
         params: dict[str, Any] = {}
         if page is not None:
@@ -3724,6 +3747,7 @@ class MarketClient(BaseClient):
         minecoins_min: int | None = None,
         minecoins_max: int | None = None,
     ) -> Category_MinecraftResponse:
+
         path = "/minecraft"
         params: dict[str, Any] = {}
         if page is not None:
@@ -3868,6 +3892,7 @@ class MarketClient(BaseClient):
         profiles_min: int | None = None,
         profiles_max: int | None = None,
     ) -> Category_HytaleResponse:
+
         path = "/hytale"
         params: dict[str, Any] = {}
         if page is not None:
@@ -3925,6 +3950,7 @@ class MarketClient(BaseClient):
         self,
         top_queries: bool | None = None,
     ) -> Category_ListResponse:
+
         path = "/category"
         params: dict[str, Any] = {}
         if top_queries is not None:
@@ -3936,6 +3962,7 @@ class MarketClient(BaseClient):
         self,
         categoryName: str,
     ) -> Category_ParamsResponse:
+
         path = "/{categoryName}/params"
         path = path.replace("{categoryName}", str(categoryName))
         raw = self._request("GET", path)
@@ -3945,6 +3972,7 @@ class MarketClient(BaseClient):
         self,
         categoryName: str,
     ) -> Category_GamesResponse:
+
         path = "/{categoryName}/games"
         path = path.replace("{categoryName}", str(categoryName))
         raw = self._request("GET", path)
@@ -3979,6 +4007,7 @@ class MarketClient(BaseClient):
         delete_endDate: str | None = None,
         filter_by_delete_date: bool | None = None,
     ) -> ItemListModel:
+
         path = "/user/items"
         params: dict[str, Any] = {}
         if user_id is not None:
@@ -4054,6 +4083,7 @@ class MarketClient(BaseClient):
         nsb: bool | None = None,
         nsb_by_me: bool | None = None,
     ) -> ItemListModel:
+
         path = "/user/orders"
         params: dict[str, Any] = {}
         if user_id is not None:
@@ -4093,6 +4123,7 @@ class MarketClient(BaseClient):
         self,
         user_id: int | None = None,
     ) -> List_StatesResponse:
+
         path = "/user/item-states"
         params: dict[str, Any] = {}
         if user_id is not None:
@@ -4130,6 +4161,7 @@ class MarketClient(BaseClient):
         delete_endDate: str | None = None,
         filter_by_delete_date: bool | None = None,
     ) -> dict[str, Any]:
+
         path = "/user/{type}/download"
         path = path.replace("{type}", str(type_))
         params: dict[str, Any] = {}
@@ -4203,6 +4235,7 @@ class MarketClient(BaseClient):
         nsb: bool | None = None,
         nsb_by_me: bool | None = None,
     ) -> ItemListModel:
+
         path = "/fave"
         params: dict[str, Any] = {}
         if page is not None:
@@ -4247,6 +4280,7 @@ class MarketClient(BaseClient):
         nsb: bool | None = None,
         nsb_by_me: bool | None = None,
     ) -> ItemListModel:
+
         path = "/viewed"
         params: dict[str, Any] = {}
         if page is not None:
@@ -4281,6 +4315,7 @@ class MarketClient(BaseClient):
         item_id: int,
         parse_same_item_ids: bool | None = None,
     ) -> Managing_GetResponse:
+
         path = "/{item_id}"
         path = path.replace("{item_id}", str(item_id))
         params: dict[str, Any] = {}
@@ -4294,9 +4329,9 @@ class MarketClient(BaseClient):
         item_id: int,
         reason: str,
     ) -> dict[str, Any]:
+
         path = "/{item_id}"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if reason is not None:
             data["reason"] = reason
@@ -4308,6 +4343,7 @@ class MarketClient(BaseClient):
         type_: str | None = None,
         claim_state: str | None = None,
     ) -> Profile_ClaimsResponse:
+
         path = "/claims"
         params: dict[str, Any] = {}
         if type_ is not None:
@@ -4322,8 +4358,8 @@ class MarketClient(BaseClient):
         item_id: ItemIDModel,
         post_body: str,
     ) -> Managing_CreateClaimResponse:
+
         path = "/claims"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if item_id is not None:
             data["item_id"] = item_id
@@ -4337,8 +4373,8 @@ class MarketClient(BaseClient):
         item_id: list[ItemIDModel] | None = None,
         parse_same_item_ids: bool | None = None,
     ) -> Managing_BulkGetResponse:
+
         path = "/bulk/items"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if item_id is not None:
             data["item_id"] = item_id
@@ -4354,6 +4390,7 @@ class MarketClient(BaseClient):
         currency: CurrencyModel | None = None,
         ignore_cache: bool | None = None,
     ) -> Managing_SteamInventoryValueResponse:
+
         path = "/{item_id}/inventory-value"
         path = path.replace("{item_id}", str(item_id))
         params: dict[str, Any] = {}
@@ -4373,6 +4410,7 @@ class MarketClient(BaseClient):
         currency: CurrencyModel | None = None,
         ignore_cache: bool | None = None,
     ) -> Managing_SteamValueResponse:
+
         path = "/steam-value"
         params: dict[str, Any] = {}
         if link is not None:
@@ -4391,6 +4429,7 @@ class MarketClient(BaseClient):
         item_id: int,
         type_: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/steam-preview"
         path = path.replace("{item_id}", str(item_id))
         params: dict[str, Any] = {}
@@ -4414,9 +4453,9 @@ class MarketClient(BaseClient):
         description: str | None = None,
         information: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/edit"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if title is not None:
             data["title"] = title
@@ -4447,6 +4486,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> Managing_AIPriceResponse:
+
         path = "/{item_id}/ai-price"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("GET", path)
@@ -4456,6 +4496,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> Managing_AutoBuyPriceResponse:
+
         path = "/{item_id}/auto-buy-price"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("GET", path)
@@ -4466,9 +4507,9 @@ class MarketClient(BaseClient):
         item_id: int,
         text: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/note-save"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if text is not None:
             data["text"] = text
@@ -4482,9 +4523,9 @@ class MarketClient(BaseClient):
         app_id: int | None = None,
         authorize: bool | None = None,
     ) -> Managing_SteamUpdateValueResponse:
+
         path = "/{item_id}/update-inventory"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if all is not None:
             data["all"] = all
@@ -4499,6 +4540,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/bump"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("POST", path)
@@ -4509,9 +4551,9 @@ class MarketClient(BaseClient):
         item_id: int,
         hour: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/auto-bump"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if hour is not None:
             data["hour"] = hour
@@ -4522,6 +4564,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/auto-bump"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("DELETE", path)
@@ -4531,6 +4574,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/open"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("POST", path)
@@ -4540,6 +4584,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/close"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("POST", path)
@@ -4550,6 +4595,7 @@ class MarketClient(BaseClient):
         item_id: int,
         type_: str,
     ) -> Managing_ImageResponse:
+
         path = "/{item_id}/image"
         path = path.replace("{item_id}", str(item_id))
         params: dict[str, Any] = {}
@@ -4583,6 +4629,7 @@ class MarketClient(BaseClient):
         not_email_provider: str | None = None,
         parse_same_item_ids: bool | None = None,
     ) -> dict[str, Any]:
+
         path = "/cart"
         params: dict[str, Any] = {}
         if category_id is not None:
@@ -4636,8 +4683,8 @@ class MarketClient(BaseClient):
         self,
         item_id: ItemIDModel,
     ) -> Cart_AddResponse:
+
         path = "/cart"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if item_id is not None:
             data["item_id"] = item_id
@@ -4648,8 +4695,8 @@ class MarketClient(BaseClient):
         self,
         item_id: ItemIDModel | None = None,
     ) -> Cart_DeleteResponse:
+
         path = "/cart"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if item_id is not None:
             data["item_id"] = item_id
@@ -4662,9 +4709,9 @@ class MarketClient(BaseClient):
         price: float | None = None,
         balance_id: int | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/fast-buy"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if price is not None:
             data["price"] = price
@@ -4677,6 +4724,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/check-account"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("POST", path)
@@ -4688,9 +4736,9 @@ class MarketClient(BaseClient):
         price: int | None = None,
         balance_id: int | None = None,
     ) -> Purchasing_ConfirmResponse:
+
         path = "/{item_id}/confirm-buy"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if price is not None:
             data["price"] = price
@@ -4705,9 +4753,9 @@ class MarketClient(BaseClient):
         discount_price: float,
         message: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/discount"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if discount_price is not None:
             data["discount_price"] = discount_price
@@ -4720,6 +4768,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/discount"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("DELETE", path)
@@ -4728,6 +4777,7 @@ class MarketClient(BaseClient):
     def custom_discounts_get(
         self,
     ) -> CustomDiscounts_GetResponse:
+
         path = "/custom-discounts"
         raw = self._request("GET", path)
         return CustomDiscounts_GetResponse.model_validate(raw)
@@ -4741,8 +4791,8 @@ class MarketClient(BaseClient):
         max_price: float | None = None,
         currency: CurrencyModel | None = None,
     ) -> CustomDiscounts_CreateResponse:
+
         path = "/custom-discounts"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
@@ -4766,8 +4816,8 @@ class MarketClient(BaseClient):
         min_price: float | None = None,
         max_price: float | None = None,
     ) -> CustomDiscounts_EditResponse:
+
         path = "/custom-discounts"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if discount_id is not None:
             data["discount_id"] = discount_id
@@ -4784,8 +4834,8 @@ class MarketClient(BaseClient):
         self,
         discount_id: int,
     ) -> dict[str, Any]:
+
         path = "/custom-discounts"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if discount_id is not None:
             data["discount_id"] = discount_id
@@ -4814,8 +4864,8 @@ class MarketClient(BaseClient):
         email_type: str | None = None,
         extra: ExtraModel | None = None,
     ) -> Publishing_FastSellResponse:
+
         path = "/item/fast-sell"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if title is not None:
             data["title"] = title
@@ -4878,8 +4928,8 @@ class MarketClient(BaseClient):
         proxy_id: int | None = None,
         random_proxy: schema | None = None,
     ) -> Publishing_AddResponse:
+
         path = "/item/add"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if title is not None:
             data["title"] = title
@@ -4931,9 +4981,9 @@ class MarketClient(BaseClient):
         email_type: str | None = None,
         extra: ExtraModel | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/goods/check"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if resell_item_id is not None:
             data["resell_item_id"] = resell_item_id
@@ -4964,9 +5014,9 @@ class MarketClient(BaseClient):
         email_login_data: str | None = None,
         cookies: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/external-account"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if type_ is not None:
             data["type"] = type_
@@ -4983,6 +5033,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> ConfirmationCodeModel:
+
         path = "/{item_id}/email-code"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("GET", path)
@@ -4995,6 +5046,7 @@ class MarketClient(BaseClient):
         password: str | None = None,
         limit: int | None = None,
     ) -> Managing_GetLetters2Response:
+
         path = "/letters2"
         params: dict[str, Any] = {}
         if email_password is not None:
@@ -5012,6 +5064,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> Managing_Steam_GetMafileResponse:
+
         path = "/{item_id}/mafile"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("GET", path)
@@ -5021,6 +5074,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/mafile"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("POST", path)
@@ -5030,6 +5084,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/mafile"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("DELETE", path)
@@ -5039,6 +5094,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> ConfirmationCodeModel:
+
         path = "/{item_id}/guard-code"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("GET", path)
@@ -5050,9 +5106,9 @@ class MarketClient(BaseClient):
         id: int | None = None,
         nonce: int | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/confirm-sda"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if id is not None:
             data["id"] = id
@@ -5065,6 +5121,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> Managing_TelegramCodeResponse:
+
         path = "/{item_id}/telegram-login-code"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("GET", path)
@@ -5074,6 +5131,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/telegram-reset-authorizations"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("POST", path)
@@ -5083,6 +5141,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/refuse-guarantee"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("POST", path)
@@ -5093,9 +5152,9 @@ class MarketClient(BaseClient):
         item_id: int,
         i_voluntarily_and_with_full_awareness_of_my_actions_waive_any_claims_regarding_this_item: bool,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/decline-video-recording"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if i_voluntarily_and_with_full_awareness_of_my_actions_waive_any_claims_regarding_this_item is not None:
             data["i_voluntarily_and_with_full_awareness_of_my_actions_waive_any_claims_regarding_this_item"] = i_voluntarily_and_with_full_awareness_of_my_actions_waive_any_claims_regarding_this_item
@@ -5106,6 +5165,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> Managing_CheckGuaranteeResponse:
+
         path = "/{item_id}/check-guarantee"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("POST", path)
@@ -5116,9 +5176,9 @@ class MarketClient(BaseClient):
         item_id: int,
         cancel: int | None = None,
     ) -> Managing_ChangePasswordResponse:
+
         path = "/{item_id}/change-password"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if cancel is not None:
             data["_cancel"] = cancel
@@ -5129,6 +5189,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> Managing_TempEmailPasswordResponse:
+
         path = "/{item_id}/temp-email-password"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("GET", path)
@@ -5139,9 +5200,9 @@ class MarketClient(BaseClient):
         item_id: int,
         tag_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/tag"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if tag_id is not None:
             data["tag_id"] = tag_id
@@ -5153,9 +5214,9 @@ class MarketClient(BaseClient):
         item_id: int,
         tag_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/tag"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if tag_id is not None:
             data["tag_id"] = tag_id
@@ -5167,9 +5228,9 @@ class MarketClient(BaseClient):
         item_id: int,
         tag_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/public-tag"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if tag_id is not None:
             data["tag_id"] = tag_id
@@ -5181,9 +5242,9 @@ class MarketClient(BaseClient):
         item_id: int,
         tag_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/public-tag"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if tag_id is not None:
             data["tag_id"] = tag_id
@@ -5194,6 +5255,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/star"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("POST", path)
@@ -5203,6 +5265,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/star"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("DELETE", path)
@@ -5212,6 +5275,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/stick"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("POST", path)
@@ -5221,6 +5285,7 @@ class MarketClient(BaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/stick"
         path = path.replace("{item_id}", str(item_id))
         raw = self._request("DELETE", path)
@@ -5232,9 +5297,9 @@ class MarketClient(BaseClient):
         username: str,
         secret_answer: str,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/change-owner"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if username is not None:
             data["username"] = username
@@ -5247,6 +5312,7 @@ class MarketClient(BaseClient):
         self,
         fields_include: list[str] | None = None,
     ) -> Profile_GetResponse:
+
         path = "/me"
         params: dict[str, Any] = {}
         if fields_include is not None:
@@ -5269,8 +5335,8 @@ class MarketClient(BaseClient):
         telegram_system_lang_code: str | None = None,
         clear_telegram_client: bool | None = None,
     ) -> dict[str, Any]:
+
         path = "/me"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if user is not None:
             data["user"] = user
@@ -5304,6 +5370,7 @@ class MarketClient(BaseClient):
         invoice_id: int | None = None,
         payment_id: str | None = None,
     ) -> Payments_Invoice_GetResponse:
+
         path = "/invoice"
         params: dict[str, Any] = {}
         if invoice_id is not None:
@@ -5328,8 +5395,8 @@ class MarketClient(BaseClient):
         additional_data: str | None = None,
         is_test: bool | None = None,
     ) -> Payments_Invoice_CreateResponse:
+
         path = "/invoice"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if currency is not None:
             data["currency"] = currency
@@ -5366,6 +5433,7 @@ class MarketClient(BaseClient):
         amount: float | None = None,
         merchant_id: int | None = None,
     ) -> Payments_Invoice_ListResponse:
+
         path = "/invoice/list"
         params: dict[str, Any] = {}
         if page is not None:
@@ -5384,6 +5452,7 @@ class MarketClient(BaseClient):
     def payments_currency(
         self,
     ) -> Payments_CurrencyResponse:
+
         path = "/currency"
         raw = self._request("GET", path)
         return Payments_CurrencyResponse.model_validate(raw)
@@ -5391,6 +5460,7 @@ class MarketClient(BaseClient):
     def payments_balance_list(
         self,
     ) -> dict[str, Any]:
+
         path = "/balance/exchange"
         raw = self._request("GET", path)
         return raw
@@ -5401,8 +5471,8 @@ class MarketClient(BaseClient):
         to_balance: str,
         amount: int,
     ) -> dict[str, Any]:
+
         path = "/balance/exchange"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if from_balance is not None:
             data["from_balance"] = from_balance
@@ -5426,8 +5496,8 @@ class MarketClient(BaseClient):
         hold_length_value: int | None = None,
         hold_length_option: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/balance/transfer"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
@@ -5456,6 +5526,7 @@ class MarketClient(BaseClient):
         self,
         amount: float | None = None,
     ) -> Payments_FeeResponse:
+
         path = "/balance/transfer/fee"
         params: dict[str, Any] = {}
         if amount is not None:
@@ -5467,8 +5538,8 @@ class MarketClient(BaseClient):
         self,
         payment_id: int,
     ) -> dict[str, Any]:
+
         path = "/balance/transfer/cancel"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if payment_id is not None:
             data["payment_id"] = payment_id
@@ -5493,6 +5564,7 @@ class MarketClient(BaseClient):
         is_hold: bool | None = None,
         show_payment_stats: bool | None = None,
     ) -> Payments_HistoryResponse:
+
         path = "/user/payments"
         params: dict[str, Any] = {}
         if type_ is not None:
@@ -5531,6 +5603,7 @@ class MarketClient(BaseClient):
     def auto_payments_list(
         self,
     ) -> AutoPayments_ListResponse:
+
         path = "/auto-payments"
         raw = self._request("GET", path)
         return AutoPayments_ListResponse.model_validate(raw)
@@ -5544,8 +5617,8 @@ class MarketClient(BaseClient):
         currency: CurrencyModel | None = None,
         description: str | None = None,
     ) -> AutoPayments_CreateResponse:
+
         path = "/auto-payment"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if secret_answer is not None:
             data["secret_answer"] = secret_answer
@@ -5566,8 +5639,8 @@ class MarketClient(BaseClient):
         self,
         auto_payment_id: int,
     ) -> dict[str, Any]:
+
         path = "/auto-payment"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if auto_payment_id is not None:
             data["auto_payment_id"] = auto_payment_id
@@ -5577,6 +5650,7 @@ class MarketClient(BaseClient):
     def payments_payout_services(
         self,
     ) -> Payments_PayoutServicesResponse:
+
         path = "/balance/payout/services"
         raw = self._request("GET", path)
         return Payments_PayoutServicesResponse.model_validate(raw)
@@ -5590,8 +5664,8 @@ class MarketClient(BaseClient):
         include_fee: bool | None = None,
         extra: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+
         path = "/balance/payout"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if payment_system is not None:
             data["payment_system"] = payment_system
@@ -5611,6 +5685,7 @@ class MarketClient(BaseClient):
     def proxy_get(
         self,
     ) -> Proxy_GetResponse:
+
         path = "/proxy"
         raw = self._request("GET", path)
         return Proxy_GetResponse.model_validate(raw)
@@ -5623,8 +5698,8 @@ class MarketClient(BaseClient):
         proxy_pass: str | None = None,
         proxy_row: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/proxy"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if proxy_ip is not None:
             data["proxy_ip"] = proxy_ip
@@ -5644,8 +5719,8 @@ class MarketClient(BaseClient):
         proxy_id: int | None = None,
         delete_all: bool | None = None,
     ) -> dict[str, Any]:
+
         path = "/proxy"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if proxy_id is not None:
             data["proxy_id"] = proxy_id
@@ -5661,8 +5736,8 @@ class MarketClient(BaseClient):
         port: int,
         secure: bool,
     ) -> dict[str, Any]:
+
         path = "/imap"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if domain is not None:
             data["domain"] = domain
@@ -5679,8 +5754,8 @@ class MarketClient(BaseClient):
         self,
         domain: str,
     ) -> dict[str, Any]:
+
         path = "/imap"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if domain is not None:
             data["domain"] = domain
@@ -5690,6 +5765,7 @@ class MarketClient(BaseClient):
     def batch(
         self,
     ) -> BatchResponse:
+
         path = "/batch"
         raw = self._request("POST", path)
         return BatchResponse.model_validate(raw)
@@ -5723,6 +5799,7 @@ class AsyncMarketClient(AsyncBaseClient):
         not_email_provider: str | None = None,
         parse_same_item_ids: bool | None = None,
     ) -> dict[str, Any]:
+
         path = "/"
         params: dict[str, Any] = {}
         if page is not None:
@@ -5892,6 +5969,7 @@ class AsyncMarketClient(AsyncBaseClient):
         cards_games_max: int | None = None,
         skip_vac_inv: bool | None = None,
     ) -> Category_SteamResponse:
+
         path = "/steam"
         params: dict[str, Any] = {}
         if page is not None:
@@ -6213,6 +6291,7 @@ class AsyncMarketClient(AsyncBaseClient):
         country: list[str] | None = None,
         not_country: list[str] | None = None,
     ) -> Category_FortniteResponse:
+
         path = "/fortnite"
         params: dict[str, Any] = {}
         if page is not None:
@@ -6453,6 +6532,7 @@ class AsyncMarketClient(AsyncBaseClient):
         zenless_currency_max: int | None = None,
         daybreak: int | None = None,
     ) -> Category_MihoyoResponse:
+
         path = "/mihoyo"
         params: dict[str, Any] = {}
         if page is not None:
@@ -6703,6 +6783,7 @@ class AsyncMarketClient(AsyncBaseClient):
         fa_max: int | None = None,
         lol_rank: list[str] | None = None,
     ) -> Category_RiotResponse:
+
         path = "/riot"
         params: dict[str, Any] = {}
         if page is not None:
@@ -6934,6 +7015,7 @@ class AsyncMarketClient(AsyncBaseClient):
         min_bot_active_users: int | None = None,
         max_bot_active_users: int | None = None,
     ) -> Category_TelegramResponse:
+
         path = "/telegram"
         params: dict[str, Any] = {}
         if page is not None:
@@ -7148,6 +7230,7 @@ class AsyncMarketClient(AsyncBaseClient):
         creation_year_min: int | None = None,
         creation_year_max: int | None = None,
     ) -> Category_SupercellResponse:
+
         path = "/supercell"
         params: dict[str, Any] = {}
         if page is not None:
@@ -7342,6 +7425,7 @@ class AsyncMarketClient(AsyncBaseClient):
         hours_played_max: dict[str, Any] | None = None,
         transactions: YesNoNoMatterScheme | None = None,
     ) -> Category_EAResponse:
+
         path = "/ea"
         params: dict[str, Any] = {}
         if page is not None:
@@ -7490,6 +7574,7 @@ class AsyncMarketClient(AsyncBaseClient):
         country: list[str] | None = None,
         not_country: list[str] | None = None,
     ) -> Category_WotResponse:
+
         path = "/world-of-tanks"
         params: dict[str, Any] = {}
         if page is not None:
@@ -7666,6 +7751,7 @@ class AsyncMarketClient(AsyncBaseClient):
         country: list[str] | None = None,
         not_country: list[str] | None = None,
     ) -> Category_WotBlitzResponse:
+
         path = "/wot-blitz"
         params: dict[str, Any] = {}
         if page is not None:
@@ -7810,6 +7896,7 @@ class AsyncMarketClient(AsyncBaseClient):
         subscription_length: int | None = None,
         subscription_period: str | None = None,
     ) -> Category_GiftsResponse:
+
         path = "/gifts"
         params: dict[str, Any] = {}
         if page is not None:
@@ -7904,6 +7991,7 @@ class AsyncMarketClient(AsyncBaseClient):
         hours_played: dict[str, Any] | None = None,
         hours_played_max: dict[str, Any] | None = None,
     ) -> Category_EpicGamesResponse:
+
         path = "/epicgames"
         params: dict[str, Any] = {}
         if page is not None:
@@ -8019,6 +8107,7 @@ class AsyncMarketClient(AsyncBaseClient):
         pve: YesNoNoMatterScheme | None = None,
         side: str | None = None,
     ) -> Category_EscapeFromTarkovResponse:
+
         path = "/escape-from-tarkov"
         params: dict[str, Any] = {}
         if page is not None:
@@ -8118,6 +8207,7 @@ class AsyncMarketClient(AsyncBaseClient):
         bank_cash_max: int | None = None,
         game: list[str] | None = None,
     ) -> Category_SocialClubResponse:
+
         path = "/socialclub"
         params: dict[str, Any] = {}
         if page is not None:
@@ -8235,6 +8325,7 @@ class AsyncMarketClient(AsyncBaseClient):
         reg: int | None = None,
         reg_period: str | None = None,
     ) -> Category_UplayResponse:
+
         path = "/uplay"
         params: dict[str, Any] = {}
         if page is not None:
@@ -8406,6 +8497,7 @@ class AsyncMarketClient(AsyncBaseClient):
         min_orbs: int | None = None,
         max_orbs: int | None = None,
     ) -> Category_DiscordResponse:
+
         path = "/discord"
         params: dict[str, Any] = {}
         if page is not None:
@@ -8573,6 +8665,7 @@ class AsyncMarketClient(AsyncBaseClient):
         verified: str | None = None,
         email: str | None = None,
     ) -> Category_TikTokResponse:
+
         path = "/tiktok"
         params: dict[str, Any] = {}
         if page is not None:
@@ -8689,6 +8782,7 @@ class AsyncMarketClient(AsyncBaseClient):
         reg: int | None = None,
         reg_period: str | None = None,
     ) -> Category_InstagramResponse:
+
         path = "/instagram"
         params: dict[str, Any] = {}
         if page is not None:
@@ -8801,6 +8895,7 @@ class AsyncMarketClient(AsyncBaseClient):
         balance_min: int | None = None,
         balance_max: int | None = None,
     ) -> Category_BattleNetResponse:
+
         path = "/battlenet"
         params: dict[str, Any] = {}
         if page is not None:
@@ -8915,6 +9010,7 @@ class AsyncMarketClient(AsyncBaseClient):
         openai_balance_min: int | None = None,
         openai_balance_max: int | None = None,
     ) -> Category_ChatGPTResponse:
+
         path = "/chatgpt"
         params: dict[str, Any] = {}
         if page is not None:
@@ -9016,6 +9112,7 @@ class AsyncMarketClient(AsyncBaseClient):
         subscription_period: str | None = None,
         autorenewal: str | None = None,
     ) -> Category_VpnResponse:
+
         path = "/vpn"
         params: dict[str, Any] = {}
         if page is not None:
@@ -9132,6 +9229,7 @@ class AsyncMarketClient(AsyncBaseClient):
         age_group: list[str] | None = None,
         not_age_group: list[str] | None = None,
     ) -> Category_RobloxResponse:
+
         path = "/roblox"
         params: dict[str, Any] = {}
         if page is not None:
@@ -9287,6 +9385,7 @@ class AsyncMarketClient(AsyncBaseClient):
         total_kredits_min: int | None = None,
         total_kredits_max: int | None = None,
     ) -> Category_WarfaceResponse:
+
         path = "/warface"
         params: dict[str, Any] = {}
         if page is not None:
@@ -9413,6 +9512,7 @@ class AsyncMarketClient(AsyncBaseClient):
         minecoins_min: int | None = None,
         minecoins_max: int | None = None,
     ) -> Category_MinecraftResponse:
+
         path = "/minecraft"
         params: dict[str, Any] = {}
         if page is not None:
@@ -9557,6 +9657,7 @@ class AsyncMarketClient(AsyncBaseClient):
         profiles_min: int | None = None,
         profiles_max: int | None = None,
     ) -> Category_HytaleResponse:
+
         path = "/hytale"
         params: dict[str, Any] = {}
         if page is not None:
@@ -9614,6 +9715,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         top_queries: bool | None = None,
     ) -> Category_ListResponse:
+
         path = "/category"
         params: dict[str, Any] = {}
         if top_queries is not None:
@@ -9625,6 +9727,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         categoryName: str,
     ) -> Category_ParamsResponse:
+
         path = "/{categoryName}/params"
         path = path.replace("{categoryName}", str(categoryName))
         raw = await self._request("GET", path)
@@ -9634,6 +9737,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         categoryName: str,
     ) -> Category_GamesResponse:
+
         path = "/{categoryName}/games"
         path = path.replace("{categoryName}", str(categoryName))
         raw = await self._request("GET", path)
@@ -9668,6 +9772,7 @@ class AsyncMarketClient(AsyncBaseClient):
         delete_endDate: str | None = None,
         filter_by_delete_date: bool | None = None,
     ) -> ItemListModel:
+
         path = "/user/items"
         params: dict[str, Any] = {}
         if user_id is not None:
@@ -9743,6 +9848,7 @@ class AsyncMarketClient(AsyncBaseClient):
         nsb: bool | None = None,
         nsb_by_me: bool | None = None,
     ) -> ItemListModel:
+
         path = "/user/orders"
         params: dict[str, Any] = {}
         if user_id is not None:
@@ -9782,6 +9888,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         user_id: int | None = None,
     ) -> List_StatesResponse:
+
         path = "/user/item-states"
         params: dict[str, Any] = {}
         if user_id is not None:
@@ -9819,6 +9926,7 @@ class AsyncMarketClient(AsyncBaseClient):
         delete_endDate: str | None = None,
         filter_by_delete_date: bool | None = None,
     ) -> dict[str, Any]:
+
         path = "/user/{type}/download"
         path = path.replace("{type}", str(type_))
         params: dict[str, Any] = {}
@@ -9892,6 +10000,7 @@ class AsyncMarketClient(AsyncBaseClient):
         nsb: bool | None = None,
         nsb_by_me: bool | None = None,
     ) -> ItemListModel:
+
         path = "/fave"
         params: dict[str, Any] = {}
         if page is not None:
@@ -9936,6 +10045,7 @@ class AsyncMarketClient(AsyncBaseClient):
         nsb: bool | None = None,
         nsb_by_me: bool | None = None,
     ) -> ItemListModel:
+
         path = "/viewed"
         params: dict[str, Any] = {}
         if page is not None:
@@ -9970,6 +10080,7 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         parse_same_item_ids: bool | None = None,
     ) -> Managing_GetResponse:
+
         path = "/{item_id}"
         path = path.replace("{item_id}", str(item_id))
         params: dict[str, Any] = {}
@@ -9983,9 +10094,9 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         reason: str,
     ) -> dict[str, Any]:
+
         path = "/{item_id}"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if reason is not None:
             data["reason"] = reason
@@ -9997,6 +10108,7 @@ class AsyncMarketClient(AsyncBaseClient):
         type_: str | None = None,
         claim_state: str | None = None,
     ) -> Profile_ClaimsResponse:
+
         path = "/claims"
         params: dict[str, Any] = {}
         if type_ is not None:
@@ -10011,8 +10123,8 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: ItemIDModel,
         post_body: str,
     ) -> Managing_CreateClaimResponse:
+
         path = "/claims"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if item_id is not None:
             data["item_id"] = item_id
@@ -10026,8 +10138,8 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: list[ItemIDModel] | None = None,
         parse_same_item_ids: bool | None = None,
     ) -> Managing_BulkGetResponse:
+
         path = "/bulk/items"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if item_id is not None:
             data["item_id"] = item_id
@@ -10043,6 +10155,7 @@ class AsyncMarketClient(AsyncBaseClient):
         currency: CurrencyModel | None = None,
         ignore_cache: bool | None = None,
     ) -> Managing_SteamInventoryValueResponse:
+
         path = "/{item_id}/inventory-value"
         path = path.replace("{item_id}", str(item_id))
         params: dict[str, Any] = {}
@@ -10062,6 +10175,7 @@ class AsyncMarketClient(AsyncBaseClient):
         currency: CurrencyModel | None = None,
         ignore_cache: bool | None = None,
     ) -> Managing_SteamValueResponse:
+
         path = "/steam-value"
         params: dict[str, Any] = {}
         if link is not None:
@@ -10080,6 +10194,7 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         type_: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/steam-preview"
         path = path.replace("{item_id}", str(item_id))
         params: dict[str, Any] = {}
@@ -10103,9 +10218,9 @@ class AsyncMarketClient(AsyncBaseClient):
         description: str | None = None,
         information: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/edit"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if title is not None:
             data["title"] = title
@@ -10136,6 +10251,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> Managing_AIPriceResponse:
+
         path = "/{item_id}/ai-price"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("GET", path)
@@ -10145,6 +10261,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> Managing_AutoBuyPriceResponse:
+
         path = "/{item_id}/auto-buy-price"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("GET", path)
@@ -10155,9 +10272,9 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         text: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/note-save"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if text is not None:
             data["text"] = text
@@ -10171,9 +10288,9 @@ class AsyncMarketClient(AsyncBaseClient):
         app_id: int | None = None,
         authorize: bool | None = None,
     ) -> Managing_SteamUpdateValueResponse:
+
         path = "/{item_id}/update-inventory"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if all is not None:
             data["all"] = all
@@ -10188,6 +10305,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/bump"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("POST", path)
@@ -10198,9 +10316,9 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         hour: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/auto-bump"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if hour is not None:
             data["hour"] = hour
@@ -10211,6 +10329,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/auto-bump"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("DELETE", path)
@@ -10220,6 +10339,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/open"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("POST", path)
@@ -10229,6 +10349,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/close"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("POST", path)
@@ -10239,6 +10360,7 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         type_: str,
     ) -> Managing_ImageResponse:
+
         path = "/{item_id}/image"
         path = path.replace("{item_id}", str(item_id))
         params: dict[str, Any] = {}
@@ -10272,6 +10394,7 @@ class AsyncMarketClient(AsyncBaseClient):
         not_email_provider: str | None = None,
         parse_same_item_ids: bool | None = None,
     ) -> dict[str, Any]:
+
         path = "/cart"
         params: dict[str, Any] = {}
         if category_id is not None:
@@ -10325,8 +10448,8 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: ItemIDModel,
     ) -> Cart_AddResponse:
+
         path = "/cart"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if item_id is not None:
             data["item_id"] = item_id
@@ -10337,8 +10460,8 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: ItemIDModel | None = None,
     ) -> Cart_DeleteResponse:
+
         path = "/cart"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if item_id is not None:
             data["item_id"] = item_id
@@ -10351,9 +10474,9 @@ class AsyncMarketClient(AsyncBaseClient):
         price: float | None = None,
         balance_id: int | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/fast-buy"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if price is not None:
             data["price"] = price
@@ -10366,6 +10489,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/check-account"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("POST", path)
@@ -10377,9 +10501,9 @@ class AsyncMarketClient(AsyncBaseClient):
         price: int | None = None,
         balance_id: int | None = None,
     ) -> Purchasing_ConfirmResponse:
+
         path = "/{item_id}/confirm-buy"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if price is not None:
             data["price"] = price
@@ -10394,9 +10518,9 @@ class AsyncMarketClient(AsyncBaseClient):
         discount_price: float,
         message: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/discount"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if discount_price is not None:
             data["discount_price"] = discount_price
@@ -10409,6 +10533,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/discount"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("DELETE", path)
@@ -10417,6 +10542,7 @@ class AsyncMarketClient(AsyncBaseClient):
     async def custom_discounts_get(
         self,
     ) -> CustomDiscounts_GetResponse:
+
         path = "/custom-discounts"
         raw = await self._request("GET", path)
         return CustomDiscounts_GetResponse.model_validate(raw)
@@ -10430,8 +10556,8 @@ class AsyncMarketClient(AsyncBaseClient):
         max_price: float | None = None,
         currency: CurrencyModel | None = None,
     ) -> CustomDiscounts_CreateResponse:
+
         path = "/custom-discounts"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
@@ -10455,8 +10581,8 @@ class AsyncMarketClient(AsyncBaseClient):
         min_price: float | None = None,
         max_price: float | None = None,
     ) -> CustomDiscounts_EditResponse:
+
         path = "/custom-discounts"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if discount_id is not None:
             data["discount_id"] = discount_id
@@ -10473,8 +10599,8 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         discount_id: int,
     ) -> dict[str, Any]:
+
         path = "/custom-discounts"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if discount_id is not None:
             data["discount_id"] = discount_id
@@ -10503,8 +10629,8 @@ class AsyncMarketClient(AsyncBaseClient):
         email_type: str | None = None,
         extra: ExtraModel | None = None,
     ) -> Publishing_FastSellResponse:
+
         path = "/item/fast-sell"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if title is not None:
             data["title"] = title
@@ -10567,8 +10693,8 @@ class AsyncMarketClient(AsyncBaseClient):
         proxy_id: int | None = None,
         random_proxy: schema | None = None,
     ) -> Publishing_AddResponse:
+
         path = "/item/add"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if title is not None:
             data["title"] = title
@@ -10620,9 +10746,9 @@ class AsyncMarketClient(AsyncBaseClient):
         email_type: str | None = None,
         extra: ExtraModel | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/goods/check"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if resell_item_id is not None:
             data["resell_item_id"] = resell_item_id
@@ -10653,9 +10779,9 @@ class AsyncMarketClient(AsyncBaseClient):
         email_login_data: str | None = None,
         cookies: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/external-account"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if type_ is not None:
             data["type"] = type_
@@ -10672,6 +10798,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> ConfirmationCodeModel:
+
         path = "/{item_id}/email-code"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("GET", path)
@@ -10684,6 +10811,7 @@ class AsyncMarketClient(AsyncBaseClient):
         password: str | None = None,
         limit: int | None = None,
     ) -> Managing_GetLetters2Response:
+
         path = "/letters2"
         params: dict[str, Any] = {}
         if email_password is not None:
@@ -10701,6 +10829,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> Managing_Steam_GetMafileResponse:
+
         path = "/{item_id}/mafile"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("GET", path)
@@ -10710,6 +10839,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/mafile"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("POST", path)
@@ -10719,6 +10849,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/mafile"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("DELETE", path)
@@ -10728,6 +10859,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> ConfirmationCodeModel:
+
         path = "/{item_id}/guard-code"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("GET", path)
@@ -10739,9 +10871,9 @@ class AsyncMarketClient(AsyncBaseClient):
         id: int | None = None,
         nonce: int | None = None,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/confirm-sda"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if id is not None:
             data["id"] = id
@@ -10754,6 +10886,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> Managing_TelegramCodeResponse:
+
         path = "/{item_id}/telegram-login-code"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("GET", path)
@@ -10763,6 +10896,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/telegram-reset-authorizations"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("POST", path)
@@ -10772,6 +10906,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/refuse-guarantee"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("POST", path)
@@ -10782,9 +10917,9 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         i_voluntarily_and_with_full_awareness_of_my_actions_waive_any_claims_regarding_this_item: bool,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/decline-video-recording"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if i_voluntarily_and_with_full_awareness_of_my_actions_waive_any_claims_regarding_this_item is not None:
             data["i_voluntarily_and_with_full_awareness_of_my_actions_waive_any_claims_regarding_this_item"] = i_voluntarily_and_with_full_awareness_of_my_actions_waive_any_claims_regarding_this_item
@@ -10795,6 +10930,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> Managing_CheckGuaranteeResponse:
+
         path = "/{item_id}/check-guarantee"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("POST", path)
@@ -10805,9 +10941,9 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         cancel: int | None = None,
     ) -> Managing_ChangePasswordResponse:
+
         path = "/{item_id}/change-password"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if cancel is not None:
             data["_cancel"] = cancel
@@ -10818,6 +10954,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> Managing_TempEmailPasswordResponse:
+
         path = "/{item_id}/temp-email-password"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("GET", path)
@@ -10828,9 +10965,9 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         tag_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/tag"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if tag_id is not None:
             data["tag_id"] = tag_id
@@ -10842,9 +10979,9 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         tag_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/tag"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if tag_id is not None:
             data["tag_id"] = tag_id
@@ -10856,9 +10993,9 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         tag_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/public-tag"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if tag_id is not None:
             data["tag_id"] = tag_id
@@ -10870,9 +11007,9 @@ class AsyncMarketClient(AsyncBaseClient):
         item_id: int,
         tag_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/public-tag"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if tag_id is not None:
             data["tag_id"] = tag_id
@@ -10883,6 +11020,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/star"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("POST", path)
@@ -10892,6 +11030,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/star"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("DELETE", path)
@@ -10901,6 +11040,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/stick"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("POST", path)
@@ -10910,6 +11050,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         item_id: int,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/stick"
         path = path.replace("{item_id}", str(item_id))
         raw = await self._request("DELETE", path)
@@ -10921,9 +11062,9 @@ class AsyncMarketClient(AsyncBaseClient):
         username: str,
         secret_answer: str,
     ) -> dict[str, Any]:
+
         path = "/{item_id}/change-owner"
         path = path.replace("{item_id}", str(item_id))
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if username is not None:
             data["username"] = username
@@ -10936,6 +11077,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         fields_include: list[str] | None = None,
     ) -> Profile_GetResponse:
+
         path = "/me"
         params: dict[str, Any] = {}
         if fields_include is not None:
@@ -10958,8 +11100,8 @@ class AsyncMarketClient(AsyncBaseClient):
         telegram_system_lang_code: str | None = None,
         clear_telegram_client: bool | None = None,
     ) -> dict[str, Any]:
+
         path = "/me"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if user is not None:
             data["user"] = user
@@ -10993,6 +11135,7 @@ class AsyncMarketClient(AsyncBaseClient):
         invoice_id: int | None = None,
         payment_id: str | None = None,
     ) -> Payments_Invoice_GetResponse:
+
         path = "/invoice"
         params: dict[str, Any] = {}
         if invoice_id is not None:
@@ -11017,8 +11160,8 @@ class AsyncMarketClient(AsyncBaseClient):
         additional_data: str | None = None,
         is_test: bool | None = None,
     ) -> Payments_Invoice_CreateResponse:
+
         path = "/invoice"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if currency is not None:
             data["currency"] = currency
@@ -11055,6 +11198,7 @@ class AsyncMarketClient(AsyncBaseClient):
         amount: float | None = None,
         merchant_id: int | None = None,
     ) -> Payments_Invoice_ListResponse:
+
         path = "/invoice/list"
         params: dict[str, Any] = {}
         if page is not None:
@@ -11073,6 +11217,7 @@ class AsyncMarketClient(AsyncBaseClient):
     async def payments_currency(
         self,
     ) -> Payments_CurrencyResponse:
+
         path = "/currency"
         raw = await self._request("GET", path)
         return Payments_CurrencyResponse.model_validate(raw)
@@ -11080,6 +11225,7 @@ class AsyncMarketClient(AsyncBaseClient):
     async def payments_balance_list(
         self,
     ) -> dict[str, Any]:
+
         path = "/balance/exchange"
         raw = await self._request("GET", path)
         return raw
@@ -11090,8 +11236,8 @@ class AsyncMarketClient(AsyncBaseClient):
         to_balance: str,
         amount: int,
     ) -> dict[str, Any]:
+
         path = "/balance/exchange"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if from_balance is not None:
             data["from_balance"] = from_balance
@@ -11115,8 +11261,8 @@ class AsyncMarketClient(AsyncBaseClient):
         hold_length_value: int | None = None,
         hold_length_option: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/balance/transfer"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if user_id is not None:
             data["user_id"] = user_id
@@ -11145,6 +11291,7 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         amount: float | None = None,
     ) -> Payments_FeeResponse:
+
         path = "/balance/transfer/fee"
         params: dict[str, Any] = {}
         if amount is not None:
@@ -11156,8 +11303,8 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         payment_id: int,
     ) -> dict[str, Any]:
+
         path = "/balance/transfer/cancel"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if payment_id is not None:
             data["payment_id"] = payment_id
@@ -11182,6 +11329,7 @@ class AsyncMarketClient(AsyncBaseClient):
         is_hold: bool | None = None,
         show_payment_stats: bool | None = None,
     ) -> Payments_HistoryResponse:
+
         path = "/user/payments"
         params: dict[str, Any] = {}
         if type_ is not None:
@@ -11220,6 +11368,7 @@ class AsyncMarketClient(AsyncBaseClient):
     async def auto_payments_list(
         self,
     ) -> AutoPayments_ListResponse:
+
         path = "/auto-payments"
         raw = await self._request("GET", path)
         return AutoPayments_ListResponse.model_validate(raw)
@@ -11233,8 +11382,8 @@ class AsyncMarketClient(AsyncBaseClient):
         currency: CurrencyModel | None = None,
         description: str | None = None,
     ) -> AutoPayments_CreateResponse:
+
         path = "/auto-payment"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if secret_answer is not None:
             data["secret_answer"] = secret_answer
@@ -11255,8 +11404,8 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         auto_payment_id: int,
     ) -> dict[str, Any]:
+
         path = "/auto-payment"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if auto_payment_id is not None:
             data["auto_payment_id"] = auto_payment_id
@@ -11266,6 +11415,7 @@ class AsyncMarketClient(AsyncBaseClient):
     async def payments_payout_services(
         self,
     ) -> Payments_PayoutServicesResponse:
+
         path = "/balance/payout/services"
         raw = await self._request("GET", path)
         return Payments_PayoutServicesResponse.model_validate(raw)
@@ -11279,8 +11429,8 @@ class AsyncMarketClient(AsyncBaseClient):
         include_fee: bool | None = None,
         extra: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+
         path = "/balance/payout"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if payment_system is not None:
             data["payment_system"] = payment_system
@@ -11300,6 +11450,7 @@ class AsyncMarketClient(AsyncBaseClient):
     async def proxy_get(
         self,
     ) -> Proxy_GetResponse:
+
         path = "/proxy"
         raw = await self._request("GET", path)
         return Proxy_GetResponse.model_validate(raw)
@@ -11312,8 +11463,8 @@ class AsyncMarketClient(AsyncBaseClient):
         proxy_pass: str | None = None,
         proxy_row: str | None = None,
     ) -> dict[str, Any]:
+
         path = "/proxy"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if proxy_ip is not None:
             data["proxy_ip"] = proxy_ip
@@ -11333,8 +11484,8 @@ class AsyncMarketClient(AsyncBaseClient):
         proxy_id: int | None = None,
         delete_all: bool | None = None,
     ) -> dict[str, Any]:
+
         path = "/proxy"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if proxy_id is not None:
             data["proxy_id"] = proxy_id
@@ -11350,8 +11501,8 @@ class AsyncMarketClient(AsyncBaseClient):
         port: int,
         secure: bool,
     ) -> dict[str, Any]:
+
         path = "/imap"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if domain is not None:
             data["domain"] = domain
@@ -11368,8 +11519,8 @@ class AsyncMarketClient(AsyncBaseClient):
         self,
         domain: str,
     ) -> dict[str, Any]:
+
         path = "/imap"
-        params: dict[str, Any] = {}
         data: dict[str, Any] = {}
         if domain is not None:
             data["domain"] = domain
@@ -11379,6 +11530,7 @@ class AsyncMarketClient(AsyncBaseClient):
     async def batch(
         self,
     ) -> BatchResponse:
+
         path = "/batch"
         raw = await self._request("POST", path)
         return BatchResponse.model_validate(raw)

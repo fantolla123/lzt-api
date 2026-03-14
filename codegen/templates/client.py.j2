@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, BinaryIO
 
 from lzt_api.client import BaseClient, AsyncBaseClient
 {% if response_models %}
@@ -8,23 +8,70 @@ from {{ module_prefix }}.models import {{ response_models | join(", ") }}
 {% endif %}
 
 
-class {{ class_name }}(BaseClient):
-{% if base_url %}
-    def __init__(self, token: str, base_url: str = "{{ base_url }}", proxy: str | None = None, timeout: float = 30.0):
-        super().__init__(token=token, base_url=base_url, proxy=proxy, timeout=timeout)
+{% macro method_body(endpoint, is_async) %}
+        path = "{{ endpoint.path }}"
+{% for param in endpoint.path_params %}
+        path = path.replace("{{ '{' + param.name + '}' }}", str({{ param.python_name }}))
+{% endfor %}
+{% if endpoint.query_params %}
+        params: dict[str, Any] = {}
+{% for param in endpoint.query_params %}
+        if {{ param.python_name }} is not None:
+            params["{{ param.name }}"] = {{ param.python_name }}
+{% endfor %}
 {% endif %}
-
-{% for endpoint in endpoints %}
-    def {{ endpoint.method_name }}(
-        self,
+{% if endpoint.is_multipart %}
+{% if endpoint.body_params %}
+        data: dict[str, Any] = {}
+{% for param in endpoint.body_params %}
+        if {{ param.python_name }} is not None:
+            data["{{ param.name }}"] = {{ param.python_name }}
+{% endfor %}
+{% endif %}
+{% if endpoint.file_params %}
+        files: dict[str, Any] = {}
+{% for param in endpoint.file_params %}
+        if {{ param.python_name }} is not None:
+            files["{{ param.name }}"] = {{ param.python_name }}
+{% endfor %}
+{% endif %}
+{% set req_kwargs %}{% if endpoint.query_params %}params=params, {% endif %}{% if endpoint.body_params %}data=data, {% endif %}{% if endpoint.file_params %}files=files{% endif %}{% endset %}
+{% elif endpoint.body_params %}
+        data: dict[str, Any] = {}
+{% for param in endpoint.body_params %}
+        if {{ param.python_name }} is not None:
+            data["{{ param.name }}"] = {{ param.python_name }}
+{% endfor %}
+{% set req_kwargs %}{% if endpoint.query_params %}params=params, {% endif %}json=data{% endset %}
+{% else %}
+{% set req_kwargs %}{% if endpoint.query_params %}params=params{% endif %}{% endset %}
+{% endif %}
+{% if is_async %}
+        raw = await self._request("{{ endpoint.method }}", path{% if req_kwargs|trim %}, {{ req_kwargs|trim }}{% endif %})
+{% else %}
+        raw = self._request("{{ endpoint.method }}", path{% if req_kwargs|trim %}, {{ req_kwargs|trim }}{% endif %})
+{% endif %}
+{% if endpoint.response_model %}
+        return {{ endpoint.response_model }}.model_validate(raw)
+{% else %}
+        return raw
+{% endif %}
+{% endmacro %}
+{% macro method_signature(endpoint) %}
 {% for param in endpoint.path_params %}
         {{ param.python_name }}: {{ param.type_hint }},
 {% endfor %}
 {% for param in endpoint.required_params %}
+{% if param.location == "file" %}
+        {{ param.python_name }}: BinaryIO,
+{% else %}
         {{ param.python_name }}: {{ param.type_hint }},
+{% endif %}
 {% endfor %}
 {% for param in endpoint.optional_params %}
-{% if param.default is not none %}
+{% if param.location == "file" %}
+        {{ param.python_name }}: BinaryIO | None = None,
+{% elif param.default is not none %}
         {{ param.python_name }}: {{ param.type_hint }} | None = {{ param.default|repr_value }},
 {% else %}
         {{ param.python_name }}: {{ param.type_hint }} | None = None,
@@ -35,39 +82,18 @@ class {{ class_name }}(BaseClient):
 {% else %}
     ) -> dict[str, Any]:
 {% endif %}
-        path = "{{ endpoint.path }}"
-{% for param in endpoint.path_params %}
-        path = path.replace("{{ '{' + param.name + '}' }}", str({{ param.python_name }}))
-{% endfor %}
-{% if endpoint.query_params or endpoint.body_params %}
-        params: dict[str, Any] = {}
-{% endif %}
-{% for param in endpoint.query_params %}
-        if {{ param.python_name }} is not None:
-            params["{{ param.name }}"] = {{ param.python_name }}
-{% endfor %}
-{% if endpoint.body_params %}
-        data: dict[str, Any] = {}
-{% for param in endpoint.body_params %}
-        if {{ param.python_name }} is not None:
-            data["{{ param.name }}"] = {{ param.python_name }}
-{% endfor %}
-{% endif %}
-{% if endpoint.query_params and endpoint.body_params %}
-        raw = self._request("{{ endpoint.method }}", path, params=params, json=data)
-{% elif endpoint.query_params %}
-        raw = self._request("{{ endpoint.method }}", path, params=params)
-{% elif endpoint.body_params %}
-        raw = self._request("{{ endpoint.method }}", path, json=data)
-{% else %}
-        raw = self._request("{{ endpoint.method }}", path)
-{% endif %}
-{% if endpoint.response_model %}
-        return {{ endpoint.response_model }}.model_validate(raw)
-{% else %}
-        return raw
+{% endmacro %}
+class {{ class_name }}(BaseClient):
+{% if base_url %}
+    def __init__(self, token: str, base_url: str = "{{ base_url }}", proxy: str | None = None, timeout: float = 30.0):
+        super().__init__(token=token, base_url=base_url, proxy=proxy, timeout=timeout)
 {% endif %}
 
+{% for endpoint in endpoints %}
+    def {{ endpoint.method_name }}(
+        self,
+{{ method_signature(endpoint) }}
+{{ method_body(endpoint, false) }}
 {% endfor %}
 
 class Async{{ class_name }}(AsyncBaseClient):
@@ -79,55 +105,6 @@ class Async{{ class_name }}(AsyncBaseClient):
 {% for endpoint in endpoints %}
     async def {{ endpoint.method_name }}(
         self,
-{% for param in endpoint.path_params %}
-        {{ param.python_name }}: {{ param.type_hint }},
-{% endfor %}
-{% for param in endpoint.required_params %}
-        {{ param.python_name }}: {{ param.type_hint }},
-{% endfor %}
-{% for param in endpoint.optional_params %}
-{% if param.default is not none %}
-        {{ param.python_name }}: {{ param.type_hint }} | None = {{ param.default|repr_value }},
-{% else %}
-        {{ param.python_name }}: {{ param.type_hint }} | None = None,
-{% endif %}
-{% endfor %}
-{% if endpoint.response_model %}
-    ) -> {{ endpoint.response_model }}:
-{% else %}
-    ) -> dict[str, Any]:
-{% endif %}
-        path = "{{ endpoint.path }}"
-{% for param in endpoint.path_params %}
-        path = path.replace("{{ '{' + param.name + '}' }}", str({{ param.python_name }}))
-{% endfor %}
-{% if endpoint.query_params or endpoint.body_params %}
-        params: dict[str, Any] = {}
-{% endif %}
-{% for param in endpoint.query_params %}
-        if {{ param.python_name }} is not None:
-            params["{{ param.name }}"] = {{ param.python_name }}
-{% endfor %}
-{% if endpoint.body_params %}
-        data: dict[str, Any] = {}
-{% for param in endpoint.body_params %}
-        if {{ param.python_name }} is not None:
-            data["{{ param.name }}"] = {{ param.python_name }}
-{% endfor %}
-{% endif %}
-{% if endpoint.query_params and endpoint.body_params %}
-        raw = await self._request("{{ endpoint.method }}", path, params=params, json=data)
-{% elif endpoint.query_params %}
-        raw = await self._request("{{ endpoint.method }}", path, params=params)
-{% elif endpoint.body_params %}
-        raw = await self._request("{{ endpoint.method }}", path, json=data)
-{% else %}
-        raw = await self._request("{{ endpoint.method }}", path)
-{% endif %}
-{% if endpoint.response_model %}
-        return {{ endpoint.response_model }}.model_validate(raw)
-{% else %}
-        return raw
-{% endif %}
-
+{{ method_signature(endpoint) }}
+{{ method_body(endpoint, true) }}
 {% endfor %}

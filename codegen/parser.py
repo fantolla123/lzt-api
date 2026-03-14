@@ -29,6 +29,7 @@ class Endpoint:
     parameters: list[Parameter] = field(default_factory=list)
     request_body_params: list[Parameter] = field(default_factory=list)
     response_model: str | None = None
+    is_multipart: bool = False
     description: str = ""
 
 
@@ -195,6 +196,8 @@ class OpenAPIParser:
                 if request_body:
                     content = request_body.get("content", {})
                     for content_type, ct_spec in content.items():
+                        if "multipart" in content_type:
+                            endpoint.is_multipart = True
                         body_schema = ct_spec.get("schema", {})
                         if "$ref" in body_schema:
                             body_schema = _resolve_ref(self.spec, body_schema["$ref"])
@@ -202,10 +205,11 @@ class OpenAPIParser:
                         required_fields = set(body_schema.get("required", []))
                         for prop_name, prop_schema in properties.items():
                             type_hint = _openapi_type_to_python(prop_schema)
+                            is_file = prop_schema.get("format") == "binary" or prop_schema.get("type") == "string" and prop_schema.get("format") == "binary"
                             endpoint.request_body_params.append(Parameter(
                                 name=prop_name,
                                 python_name=_sanitize_python_name(prop_name),
-                                location="body",
+                                location="file" if is_file else "body",
                                 required=prop_name in required_fields,
                                 type_hint=type_hint,
                                 default=prop_schema.get("default"),
